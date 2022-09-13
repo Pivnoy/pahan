@@ -1,9 +1,7 @@
 package app
 
 import (
-	"github.com/go-chi/chi/v5"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"pahan/config"
@@ -19,12 +17,7 @@ func Run(cfg *config.Config) {
 		log.Fatal("Error in creating Postgres Instance")
 	}
 
-	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Pashok delaet kyrsach"))
-	})
-
-	serv := httpserver.New(r, httpserver.Port(cfg.HTTP.Port))
+	serv := httpserver.New(nil, httpserver.Port(cfg.HTTP.Port))
 
 	interruption := make(chan os.Signal, 1)
 	signal.Notify(interruption, os.Interrupt, syscall.SIGTERM)
