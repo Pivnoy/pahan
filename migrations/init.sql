@@ -7,7 +7,7 @@ create table if not exists country (
 create table if not exists vendor (
     id serial primary key,
     name varchar(50) not null,
-    country_id serial references country(id),
+    country_id bigint references country(id),
     capitalization decimal
 );
 
@@ -31,14 +31,14 @@ create table if not exists model (
     significance int not null ,
     price decimal not null,
     prod_cost decimal not null,
-    engine_id serial references engine(id),
-    suspension_id serial references suspension(id),
-    vendor_id serial references vendor(id)
+    engine_id bigint references engine(id),
+    suspension_id bigint references suspension(id),
+    vendor_id bigint references vendor(id)
 );
 
 create table if not exists orders (
     id serial primary key,
-    model_id serial references model(id),
+    model_id bigint references model(id),
     quantity bigint not null,
     order_type varchar(50) not null,
     order_time timestamp not null,
@@ -47,8 +47,8 @@ create table if not exists orders (
 
 create table if not exists shipment (
     id serial primary key,
-    order_id serial references orders(id),
-    country_to_id serial references country(id)
+    order_id bigint references orders(id),
+    country_to_id bigint references country(id)
 );
 
 insert into country(gdp_usd, name) values
