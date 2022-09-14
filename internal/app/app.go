@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 	"pahan/config"
-	"pahan/internal/controller/http"
+	"pahan/internal/controller/http/v1"
 	"pahan/internal/usecase"
 	"pahan/internal/usecase/repo"
 	"pahan/pkg/httpserver"
@@ -25,7 +25,7 @@ func Run(cfg *config.Config) {
 
 	// http Server
 	handler := gin.New()
-	http.NewRouter(handler, engineUseCase)
+	v1.NewRouter(handler, engineUseCase)
 
 	serv := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 	interruption := make(chan os.Signal, 1)
