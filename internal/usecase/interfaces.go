@@ -22,6 +22,10 @@ type (
 		GetSuspensions(context.Context) ([]entity.Suspension, error)
 	}
 
+	Engine interface {
+		Engines(context.Context) ([]entity.Engine, error)
+	}
+
 	EngineRp interface {
 		GetEngines(context.Context) ([]entity.Engine, error)
 	}
