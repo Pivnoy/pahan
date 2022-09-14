@@ -25,7 +25,7 @@ type engineResponse struct {
 func (r *engineRoutes) getEngine(c *gin.Context) {
 	listEngine, err := r.t.Engines(c.Request.Context())
 	if err != nil {
-		log.Fatal("engine error")
+		log.Fatal("info: ", err)
 		return
 	}
 	c.JSON(http.StatusOK, engineResponse{listEngine})
