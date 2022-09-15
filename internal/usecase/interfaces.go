@@ -18,8 +18,16 @@ type (
 		GetVendors(context.Context) ([]entity.Vendor, error)
 	}
 
+	Suspension interface {
+		Suspensions(context.Context) ([]entity.Suspension, error)
+	}
+
 	SuspensionRp interface {
 		GetSuspensions(context.Context) ([]entity.Suspension, error)
+	}
+
+	Engine interface {
+		Engines(context.Context) ([]entity.Engine, error)
 	}
 
 	EngineRp interface {
