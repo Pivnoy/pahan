@@ -7,10 +7,12 @@ import (
 
 func NewRouter(handler *gin.Engine,
 	en usecase.Engine,
-	su usecase.Suspension) {
+	su usecase.Suspension,
+	ds usecase.Model) {
 	h := handler.Group("/v1")
 	{
 		newEngineRoutes(h, en)
 		newSuspensionRoutes(h, su)
+		newDesignRoutes(h, ds)
 	}
 }
