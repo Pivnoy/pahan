@@ -10,7 +10,7 @@ type EngineUseCase struct {
 	repo EngineRp
 }
 
-func New(r EngineRp) *EngineUseCase {
+func NewEngineUseCase(r EngineRp) *EngineUseCase {
 	return &EngineUseCase{
 		repo: r,
 	}

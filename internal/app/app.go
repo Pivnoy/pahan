@@ -21,11 +21,11 @@ func Run(cfg *config.Config) {
 		log.Fatal("Error in creating Postgres Instance")
 	}
 
-	engineUseCase := usecase.New(repo.NewEngineRepo(pg))
-
+	engineUseCase := usecase.NewEngineUseCase(repo.NewEngineRepo(pg))
+	suspensionUseCase := usecase.NewSuspensionUseCase(repo.NewSuspensionRepo(pg))
 	// http Server
 	handler := gin.New()
-	v1.NewRouter(handler, engineUseCase)
+	v1.NewRouter(handler, engineUseCase, suspensionUseCase)
 
 	serv := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 	interruption := make(chan os.Signal, 1)

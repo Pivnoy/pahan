@@ -5,9 +5,12 @@ import (
 	"pahan/internal/usecase"
 )
 
-func NewRouter(handler *gin.Engine, t usecase.Engine) {
+func NewRouter(handler *gin.Engine,
+	en usecase.Engine,
+	su usecase.Suspension) {
 	h := handler.Group("/v1")
 	{
-		newEngineRoutes(h, t)
+		newEngineRoutes(h, en)
+		newSuspensionRoutes(h, su)
 	}
 }
