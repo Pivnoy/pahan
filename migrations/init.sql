@@ -49,6 +49,7 @@ create table if not exists shipment (
     id serial primary key,
     order_id bigint references orders(id),
     country_to_id bigint references country(id)
+    date_order timestamp
 );
 
 insert into country(gdp_usd, name) values
