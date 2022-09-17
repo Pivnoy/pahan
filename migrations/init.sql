@@ -41,9 +41,7 @@ create table if not exists orders (
     id serial primary key,
     model_id bigint references model(id),
     quantity bigint not null,
-    order_type varchar(50) not null,
-    order_time timestamp not null,
-    shipping_date timestamp not null
+    order_type varchar(50) not null
 );
 
 create table if not exists shipment (
@@ -121,9 +119,14 @@ end;
 $$ language 'plpgsql';
 
 
-
--- select do_new_model('PWD', 1, 2, 1, 1, 1, 'bmw');
-
+/* функция 2 - создание заказа */
+create or replace function do_new_order(new_model_id bigint, new_quantity bigint, new_order_type varchar(50))
+returns void as $$
+begin
+    insert into orders (model_id, quantity, order_type)
+    values (new_model_id, new_quantity, new_order_type);
+end;
+$$ language 'plpgsql';
 
 /*
 Триггеры
