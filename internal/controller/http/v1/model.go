@@ -12,7 +12,7 @@ type designRoutes struct {
 	t usecase.Model
 }
 
-func newDesignRoutes(handler *gin.RouterGroup, t usecase.Model) {
+func newModelRoutes(handler *gin.RouterGroup, t usecase.Model) {
 	r := &designRoutes{t: t}
 
 	handler.POST("/new_design", r.doNewDesign)

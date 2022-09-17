@@ -18,7 +18,7 @@ func NewRouter(handler *gin.Engine,
 	{
 		newEngineRoutes(h, en)
 		newSuspensionRoutes(h, su)
-		newDesignRoutes(h, ds)
+		newModelRoutes(h, ds)
 		newOrdersRoutes(h, or)
 		newShipmentRoutes(h, sh)
 		newVendorRoutes(h, vd)
