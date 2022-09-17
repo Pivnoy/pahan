@@ -61,23 +61,23 @@ insert into country(gdp_usd, name) values
                                        (1667.13, 'Uzbekistan');
 
 insert into vendor(country_id, capitalization, name) values
-                                                         (1, 13135, 'UAZ'),
-                                                         (1, 1556, 'LADA'),
-                                                         (1, 35635, 'ZIL'),
-                                                         (1, 23725, 'KAMAZ'),
-                                                         (2, 356365, 'Ford'),
-                                                         (2, 36363572, 'Chevrolet'),
-                                                         (2, 24747247, 'Cadillac'),
-                                                         (2, 24574474, 'Lincoln'),
-                                                         (2, 247247, 'Buick'),
-                                                         (2, 496559, 'Jeep'),
-                                                         (2, 3559468, 'Pontiac'),
-                                                         (3, 45385974, 'Toyota'),
-                                                         (3, 358453, 'Mazda'),
-                                                         (3, 34687456945383466, 'Nissan'),
-                                                         (4, 3684374, 'Renault'),
-                                                         (4, 34678453, 'Citroen'),
-                                                         (4, 586947958, 'Peugeot');
+                                                         (1, 13135.34, 'UAZ'),
+                                                         (1, 1556.12, 'LADA'),
+                                                         (1, 35635.84, 'ZIL'),
+                                                         (1, 23725.21, 'KAMAZ'),
+                                                         (2, 356365.44, 'Ford'),
+                                                         (2, 36363572.66, 'Chevrolet'),
+                                                         (2, 24747247.11, 'Cadillac'),
+                                                         (2, 24574474.34, 'Lincoln'),
+                                                         (2, 247247.13, 'Buick'),
+                                                         (2, 496559.69, 'Jeep'),
+                                                         (2, 3559468.96, 'Pontiac'),
+                                                         (3, 45385974.31, 'Toyota'),
+                                                         (3, 358453.01, 'Mazda'),
+                                                         (3, 34687456945383466.33, 'Nissan'),
+                                                         (4, 3684374.42, 'Renault'),
+                                                         (4, 34678453.12, 'Citroen'),
+                                                         (4, 586947958.33, 'Peugeot');
 
 insert into engine(name, power, torque, layout) values
                                                     ('Renault M26/27', 88, 124, 'V8'),
