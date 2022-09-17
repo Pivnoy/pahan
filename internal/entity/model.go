@@ -9,4 +9,5 @@ type Model struct {
 	EngineID     int64   `json:"engine_id"`
 	SuspensionID int64   `json:"suspension_id"`
 	VendorID     int64   `json:"vendor_id"`
+	Name         string  `json:"name"`
 }

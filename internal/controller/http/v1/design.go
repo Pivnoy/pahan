@@ -20,14 +20,13 @@ func newDesignRoutes(handler *gin.RouterGroup, t usecase.Model) {
 
 // структура для тела запроса
 type doDesignRequest struct {
-	ID           int64   `json:"id" binding:"required" example:"1"`
-	WheelDrive   string  `json:"wheeldrive" binding:"required" example:"FWD"`
-	Significance int64   `json:"significance" binding:"required" example:"1"`
-	Price        int64   `json:"price" binding:"required" example:"1000"`
-	ProdCost     float64 `json:"prod_cost" binding:"required" example:"1000.1"`
-	EngineID     int64   `json:"engine_id" binding:"required" example:"1"`
-	SuspensionID int64   `json:"suspension_id" binding:"required" example:"1"`
-	VendorID     int64   `json:"vendor_id" binding:"required" example:"1"`
+	WheelDrive   string  `json:"wheeldrive"`
+	Significance int64   `json:"significance"`
+	ProdCost     float64 `json:"prod_cost"`
+	EngineID     int64   `json:"engine_id"`
+	SuspensionID int64   `json:"suspension_id"`
+	VendorID     int64   `json:"vendor_id"`
+	Name         string  `json:"name"`
 }
 
 // проектирование новой модели машины
@@ -40,14 +39,13 @@ func (r *designRoutes) doNewDesign(c *gin.Context) {
 
 	err := r.t.NewModel(c.Request.Context(),
 		entity.Model{
-			ID:           request.ID,
 			WheelDrive:   request.WheelDrive,
 			Significance: request.Significance,
-			Price:        request.Price,
 			ProdCost:     request.ProdCost,
 			EngineID:     request.EngineID,
 			SuspensionID: request.SuspensionID,
 			VendorID:     request.VendorID,
+			Name:         request.Name,
 		})
 
 	if err != nil {

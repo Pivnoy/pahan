@@ -18,8 +18,8 @@ func NewDesignUseCase(r ModelRp) *DesignUseCase {
 	}
 }
 
-func (uc *DesignUseCase) NewModel(ctx context.Context, t entity.Model) error {
-	err := uc.repo.DoNewModel(ctx, t)
+func (uc *DesignUseCase) NewModel(ctx context.Context, car entity.Model) error {
+	err := uc.repo.DoNewModel(ctx, car)
 	if err != nil {
 		return fmt.Errorf("DesignUseCase - NewModel - s.repo.DoNewModel: %w", err)
 	}
