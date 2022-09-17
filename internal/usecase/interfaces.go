@@ -18,6 +18,10 @@ type (
 		GetCountries(context.Context) ([]entity.Country, error)
 	}
 
+	Vendor interface {
+		GetAllVendors(context.Context) ([]entity.Vendor, error)
+	}
+
 	VendorRp interface {
 		GetVendors(context.Context) ([]entity.Vendor, error)
 	}
