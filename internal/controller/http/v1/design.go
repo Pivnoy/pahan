@@ -15,7 +15,7 @@ type designRoutes struct {
 func newDesignRoutes(handler *gin.RouterGroup, t usecase.Model) {
 	r := &designRoutes{t: t}
 
-	handler.POST("/design", r.doNewDesign)
+	handler.POST("/new_design", r.doNewDesign)
 }
 
 // структура для тела запроса
