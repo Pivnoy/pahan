@@ -33,7 +33,8 @@ create table if not exists model (
     prod_cost decimal not null,
     engine_id bigint references engine(id),
     suspension_id bigint references suspension(id),
-    vendor_id bigint references vendor(id)
+    vendor_id bigint references vendor(id),
+    name varchar(20) not null
 );
 
 create table if not exists orders (
@@ -48,7 +49,7 @@ create table if not exists orders (
 create table if not exists shipment (
     id serial primary key,
     order_id bigint references orders(id),
-    country_to_id bigint references country(id)
+    country_to_id bigint references country(id),
     date_order timestamp
 );
 
@@ -102,3 +103,40 @@ insert into suspension(name, sus_type) values
                                            ('podveska 3', 'dlya goroda'),
                                            ('podveska 4', 'dlya vnedorojiya'),
                                            ('podveska 5', 'dlya kaifa');
+
+
+
+
+/*
+Функции
+*/
+
+/* функция 1 - создания новой модели */
+create or replace function do_new_model(new_wheeldrive varchar(3), new_significance integer, new_prod_cost decimal, new_engine_id bigint, new_suspension_id bigint, new_vendor_id integer, new_name varchar(20))
+returns void as $$
+begin
+    insert into model (wheeldrive, significance, price, prod_cost, engine_id, suspension_id, vendor_id, name)
+    values (new_wheeldrive, new_significance, new_prod_cost, new_prod_cost, new_engine_id, new_suspension_id, new_vendor_id, new_name);
+end;
+$$ language 'plpgsql';
+
+
+
+-- select do_new_model('PWD', 1, 2, 1, 1, 1, 'bmw');
+
+
+/*
+Триггеры
+*/
+
+/* Триггер 1 - подсчёт prod_cost при добавлении */
+create or replace function update_prod_cost()
+returns trigger as $$
+begin
+    update model set prod_cost = new.prod_cost * 1.3 where model.id = new.id;
+    return new;
+end;
+$$ language 'plpgsql';
+
+create trigger auto_update_prod_cost after insert on model
+    for each row execute procedure update_prod_cost();
