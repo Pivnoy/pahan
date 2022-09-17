@@ -7,12 +7,10 @@ import (
 
 type (
 	Model interface {
-		// проектирование новой модели
 		NewModel(context.Context, entity.Model) error
 	}
 
 	ModelRp interface {
-		//TODO
 		DoNewModel(context.Context, entity.Model) error
 	}
 
@@ -38,5 +36,13 @@ type (
 
 	EngineRp interface {
 		GetEngines(context.Context) ([]entity.Engine, error)
+	}
+
+	Orders interface {
+		NewOrder(context.Context, entity.Orders) error
+	}
+
+	OrdersRp interface {
+		DoNewOrder(context.Context, entity.Orders) error
 	}
 )
