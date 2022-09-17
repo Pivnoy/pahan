@@ -42,8 +42,6 @@ create table if not exists orders (
     model_id bigint references model(id),
     quantity bigint not null,
     order_type varchar(50) not null,
-    order_time timestamp not null,
-    shipping_date timestamp not null
 );
 
 create table if not exists shipment (
@@ -121,9 +119,13 @@ end;
 $$ language 'plpgsql';
 
 
+/* функция 2 - создание заказа */
+create or replace function do_new_order()
+returns void as $$
+begin
 
--- select do_new_model('PWD', 1, 2, 1, 1, 1, 'bmw');
-
+end;
+$$ language 'plpgsql';
 
 /*
 Триггеры
