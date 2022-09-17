@@ -25,9 +25,10 @@ func Run(cfg *config.Config) {
 	suspensionUseCase := usecase.NewSuspensionUseCase(repo.NewSuspensionRepo(pg))
 	designUseCase := usecase.NewDesignUseCase(repo.NewModelRepo(pg))
 	ordersUseCase := usecase.NewOrdersUseCase(repo.NewOrdersRepo(pg))
+	shipmentUseCase := usecase.NewShipmentUseCase(repo.NewShipmentRepo(pg))
 	// http Server
 	handler := gin.New()
-	v1.NewRouter(handler, engineUseCase, suspensionUseCase, designUseCase, ordersUseCase)
+	v1.NewRouter(handler, engineUseCase, suspensionUseCase, designUseCase, ordersUseCase, shipmentUseCase)
 
 	serv := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 	interruption := make(chan os.Signal, 1)
