@@ -45,4 +45,12 @@ type (
 	OrdersRp interface {
 		DoNewOrder(context.Context, entity.Orders) error
 	}
+
+	Shipment interface {
+		NewShipment(context.Context, entity.Shipment) error
+	}
+
+	ShipmentRp interface {
+		DoNewShipment(context.Context, entity.Shipment) error
+	}
 )

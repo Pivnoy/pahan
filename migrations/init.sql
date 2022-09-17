@@ -128,6 +128,17 @@ begin
 end;
 $$ language 'plpgsql';
 
+
+/* функция 3 - выполнить заказ */
+create or replace function do_new_shipment(new_order_id bigint, new_country_id bigint, new_data timestamp)
+returns void as $$
+begin
+    insert into shipment (order_id, country_to_id, date_order)
+    values (new_order_id, new_country_id, new_data);
+end;
+$$ language 'plpgsql';
+
+
 /*
 Триггеры
 */
