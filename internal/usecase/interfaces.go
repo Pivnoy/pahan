@@ -6,8 +6,14 @@ import (
 )
 
 type (
+	Model interface {
+		// проектирование новой модели
+		NewModel(context.Context, entity.Model) error
+	}
+
 	ModelRp interface {
 		//TODO
+		DoNewModel(context.Context, entity.Model) error
 	}
 
 	CountryRp interface {
