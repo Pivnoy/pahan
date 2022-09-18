@@ -6,12 +6,20 @@ import (
 )
 
 type (
+	Model interface {
+		NewModel(context.Context, entity.Model) error
+	}
+
 	ModelRp interface {
-		//TODO
+		DoNewModel(context.Context, entity.Model) error
 	}
 
 	CountryRp interface {
 		GetCountries(context.Context) ([]entity.Country, error)
+	}
+
+	Vendor interface {
+		GetAllVendors(context.Context) ([]entity.Vendor, error)
 	}
 
 	VendorRp interface {
@@ -32,5 +40,21 @@ type (
 
 	EngineRp interface {
 		GetEngines(context.Context) ([]entity.Engine, error)
+	}
+
+	Orders interface {
+		NewOrder(context.Context, entity.Orders) error
+	}
+
+	OrdersRp interface {
+		DoNewOrder(context.Context, entity.Orders) error
+	}
+
+	Shipment interface {
+		NewShipment(context.Context, entity.Shipment) error
+	}
+
+	ShipmentRp interface {
+		DoNewShipment(context.Context, entity.Shipment) error
 	}
 )

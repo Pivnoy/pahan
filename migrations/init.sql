@@ -33,22 +33,22 @@ create table if not exists model (
     prod_cost decimal not null,
     engine_id bigint references engine(id),
     suspension_id bigint references suspension(id),
-    vendor_id bigint references vendor(id)
+    vendor_id bigint references vendor(id),
+    name varchar(20) not null
 );
 
 create table if not exists orders (
     id serial primary key,
     model_id bigint references model(id),
     quantity bigint not null,
-    order_type varchar(50) not null,
-    order_time timestamp not null,
-    shipping_date timestamp not null
+    order_type varchar(50) not null
 );
 
 create table if not exists shipment (
     id serial primary key,
     order_id bigint references orders(id),
-    country_to_id bigint references country(id)
+    country_to_id bigint references country(id),
+    date_order timestamp
 );
 
 insert into country(gdp_usd, name) values
@@ -61,23 +61,23 @@ insert into country(gdp_usd, name) values
                                        (1667.13, 'Uzbekistan');
 
 insert into vendor(country_id, capitalization, name) values
-                                                         (1, 13135.24, 'UAZ'),
-                                                         (1, 1556.67, 'LADA'),
-                                                         (1, 35635.77, 'ZIL'),
-                                                         (1, 23725.88, 'KAMAZ'),
-                                                         (2, 356365.78, 'Ford'),
-                                                         (2, 36363572.35, 'Chevrolet'),
-                                                         (2, 24747247.66, 'Cadillac'),
-                                                         (2, 24574474.12, 'Lincoln'),
-                                                         (2, 247247.22, 'Buick'),
-                                                         (2, 496559.23, 'Jeep'),
-                                                         (2, 3559468.33, 'Pontiac'),
-                                                         (3, 45385974.66, 'Toyota'),
-                                                         (3, 358453.67, 'Mazda'),
-                                                         (3, 34687456945383466.79, 'Nissan'),
-                                                         (4, 3684374.76, 'Renault'),
-                                                         (4, 34678453.56, 'Citroen'),
-                                                         (4, 586947958.54, 'Peugeot');
+                                                         (1, 13135.34, 'UAZ'),
+                                                         (1, 1556.12, 'LADA'),
+                                                         (1, 35635.84, 'ZIL'),
+                                                         (1, 23725.21, 'KAMAZ'),
+                                                         (2, 356365.44, 'Ford'),
+                                                         (2, 36363572.66, 'Chevrolet'),
+                                                         (2, 24747247.11, 'Cadillac'),
+                                                         (2, 24574474.34, 'Lincoln'),
+                                                         (2, 247247.13, 'Buick'),
+                                                         (2, 496559.69, 'Jeep'),
+                                                         (2, 3559468.96, 'Pontiac'),
+                                                         (3, 45385974.31, 'Toyota'),
+                                                         (3, 358453.01, 'Mazda'),
+                                                         (3, 34687456945383466.33, 'Nissan'),
+                                                         (4, 3684374.42, 'Renault'),
+                                                         (4, 34678453.12, 'Citroen'),
+                                                         (4, 586947958.33, 'Peugeot');
 
 insert into engine(name, power, torque, layout) values
                                                     ('Renault M26/27', 88, 124, 'V8'),
@@ -101,3 +101,56 @@ insert into suspension(name, sus_type) values
                                            ('podveska 3', 'dlya goroda'),
                                            ('podveska 4', 'dlya vnedorojiya'),
                                            ('podveska 5', 'dlya kaifa');
+
+
+
+
+/*
+Функции
+*/
+
+/* функция 1 - создания новой модели */
+create or replace function do_new_model(new_wheeldrive varchar(3), new_significance integer, new_prod_cost decimal, new_engine_id bigint, new_suspension_id bigint, new_vendor_id integer, new_name varchar(20))
+returns void as $$
+begin
+    insert into model (wheeldrive, significance, price, prod_cost, engine_id, suspension_id, vendor_id, name)
+    values (new_wheeldrive, new_significance, new_prod_cost, new_prod_cost, new_engine_id, new_suspension_id, new_vendor_id, new_name);
+end;
+$$ language 'plpgsql';
+
+
+/* функция 2 - создание заказа */
+create or replace function do_new_order(new_model_id bigint, new_quantity bigint, new_order_type varchar(50))
+returns void as $$
+begin
+    insert into orders (model_id, quantity, order_type)
+    values (new_model_id, new_quantity, new_order_type);
+end;
+$$ language 'plpgsql';
+
+
+/* функция 3 - выполнить заказ */
+create or replace function do_new_shipment(new_order_id bigint, new_country_id bigint, new_data timestamp)
+returns void as $$
+begin
+    insert into shipment (order_id, country_to_id, date_order)
+    values (new_order_id, new_country_id, new_data);
+end;
+$$ language 'plpgsql';
+
+
+/*
+Триггеры
+*/
+
+/* Триггер 1 - подсчёт prod_cost при добавлении */
+create or replace function update_prod_cost()
+returns trigger as $$
+begin
+    update model set prod_cost = new.prod_cost * 1.3 where model.id = new.id;
+    return new;
+end;
+$$ language 'plpgsql';
+
+create trigger auto_update_prod_cost after insert on model
+    for each row execute procedure update_prod_cost();

@@ -31,7 +31,7 @@ func (v *VendorRepo) GetVendors(ctx context.Context) ([]entity.Vendor, error) {
 
 	for rows.Next() {
 		var vn entity.Vendor
-		err = rows.Scan(&vn.ID, &vn.Name, &vn.Capitalization, &vn.CountryID)
+		err = rows.Scan(&vn.ID, &vn.Name, &vn.CountryID, &vn.Capitalization)
 		if err != nil {
 			return nil, fmt.Errorf("error in parsing vendor: %w", err)
 		}
