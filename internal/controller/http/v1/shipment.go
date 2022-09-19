@@ -41,7 +41,7 @@ func (s *shipmentRoutes) doNewShipment(c *gin.Context) {
 			Date:        t,
 		})
 	if err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, nil)

@@ -49,7 +49,7 @@ func (r *designRoutes) doNewDesign(c *gin.Context) {
 		})
 
 	if err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, nil)

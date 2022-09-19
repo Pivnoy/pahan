@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
@@ -25,7 +24,7 @@ type suspensionResponse struct {
 func (r *suspensionRoutes) getSuspension(c *gin.Context) {
 	listSuspension, err := r.t.Suspensions(c.Request.Context())
 	if err != nil {
-		log.Fatal("suspension error")
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, suspensionResponse{listSuspension})

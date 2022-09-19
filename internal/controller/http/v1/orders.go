@@ -37,7 +37,7 @@ func (o *ordersRoutes) doNewOrder(c *gin.Context) {
 			OrderType: request.OrderType,
 		})
 	if err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, nil)
