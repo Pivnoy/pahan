@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
@@ -33,7 +32,7 @@ type doDesignRequest struct {
 func (r *designRoutes) doNewDesign(c *gin.Context) {
 	var request doDesignRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
