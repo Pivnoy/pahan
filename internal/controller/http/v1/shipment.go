@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
@@ -28,7 +27,7 @@ type doShipmentRequest struct {
 func (s *shipmentRoutes) doNewShipment(c *gin.Context) {
 	var request doShipmentRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -41,7 +40,7 @@ func (s *shipmentRoutes) doNewShipment(c *gin.Context) {
 			Date:        t,
 		})
 	if err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, nil)

@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
@@ -25,7 +24,7 @@ type vendorResponse struct {
 func (v *vendorRoutes) getVendors(c *gin.Context) {
 	listVendors, err := v.t.GetAllVendors(c.Request.Context())
 	if err != nil {
-		log.Fatal("engine error", err)
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, vendorResponse{listVendors})

@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
@@ -25,7 +24,7 @@ type engineResponse struct {
 func (r *engineRoutes) getEngine(c *gin.Context) {
 	listEngine, err := r.t.Engines(c.Request.Context())
 	if err != nil {
-		log.Fatal("engine error")
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, engineResponse{listEngine})

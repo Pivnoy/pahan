@@ -2,7 +2,6 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
@@ -27,7 +26,7 @@ type doOrderRequest struct {
 func (o *ordersRoutes) doNewOrder(c *gin.Context) {
 	var request doOrderRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 	err := o.t.NewOrder(c.Request.Context(),
@@ -37,7 +36,7 @@ func (o *ordersRoutes) doNewOrder(c *gin.Context) {
 			OrderType: request.OrderType,
 		})
 	if err != nil {
-		log.Fatal(err)
+		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, nil)
