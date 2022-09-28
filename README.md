@@ -2,8 +2,8 @@
 
 ## Инфологическая модель
 
-![img.png](docs/er.png)
+![img.png](doc/er.png)
 
 ## Даталогическая модель 
 
-![img.png](docs/dr.png)
+![img.png](doc/dr.png)
