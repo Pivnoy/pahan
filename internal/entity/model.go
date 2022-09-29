@@ -1,13 +1,14 @@
 package entity
 
 type Model struct {
-	ID           int64   `json:"id"`
-	WheelDrive   string  `json:"wheeldrive"`
-	Significance int64   `json:"significance"`
-	Price        int64   `json:"price"`
-	ProdCost     float64 `json:"prod_cost"`
-	EngineID     int64   `json:"engine_id"`
-	SuspensionID int64   `json:"suspension_id"`
-	VendorID     int64   `json:"vendor_id"`
-	Name         string  `json:"name"`
+	ID           int64  `json:"id"`
+	VendorID     int64  `json:"vendor_id"`
+	Name         string `json:"name"`
+	WheelDrive   string `json:"wheeldrive"`
+	Significance int64  `json:"significance"`
+	Price        int64  `json:"price"`
+	ProdCost     int64  `json:"prod_cost"`
+	EngineerID   int64  `json:"engineer_id"`
+	FactoryID    int64  `json:"factory_id"`
+	Sales        int64  `json:"sales"`
 }
