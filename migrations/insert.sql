@@ -1,6 +1,3 @@
-
-## НЕ ДАДЕЛАНА Я ДАДЕЛАЮ СКОРО
-
 insert into country(gdp_usd, name) values
                                        (124425.64, 'Russia'),
                                        (11122134.65, 'USA'),
@@ -85,65 +82,131 @@ insert into component (vendor_id, type_id, name, additional_info) values
                                                                       (14, 2, 'QR20DE', 'petrol'),
                                                                       (14, 3, 'VH45DE', 'petrol'),
                                                                       (14, 4, 'QD32', 'diesel'),
-                                                                      (15, 6, RRD)
+                                                                      (15, 6, 'RRD', 'diesel'),
+                                                                      (21, 5, 'EV', 'EvEngine'),
+                                                                      (15, 6, 'RenaultDoorFL', 'Red'),
+                                                                      (15, 7, 'RenaultDoorFR', 'Red'),
+                                                                      (15, 8, 'RenaultDoorBL', 'Red'),
+                                                                      (15, 9, 'RenaultDoorBR', 'Red'),
+                                                                      (14, 6, 'NissanDoorFL', 'Yellow'),
+                                                                      (14, 7, 'NissanDoorFR', 'Yellow'),
+                                                                      (14, 8, 'NissanDoorBL', 'Yellow'),
+                                                                      (14, 9, 'NissanDoorBR', 'Yellow'),
+                                                                      (21, 6, 'BMWEvDoorFL', 'Black'),
+                                                                      (21, 7, 'BMWEvDoorFR', 'Black'),
+                                                                      (21, 8, 'BMWEvDoorBL', 'Black'),
+                                                                      (21, 9, 'BMWEvDoorBR', 'Black'),
+                                                                      (14, 12, 'RS6F94R', 'MT 6-speed'),
+                                                                      (14, 14, 'JF010E', 'CVT'),
+                                                                      (15, 12, 'JH1', 'MT 5-speed'),
+                                                                      (15, 13, 'DP2', 'AT 3-speed'),
+                                                                      (21, 15, 'DCT', 'Robot'),
+                                                                      (21, 13, '6HP19', 'AT 6-speed');
 
-    insert into component (name, type, vendor_id, additional_info) values
-    ('Renault M26/27', 'engine', 15, 'V8'),
-    ('Renault S4', 'engine', 15, 'V8'),
-    ('Renault S4F', 'engine', 15, 'V8'),
-    ('Delahaye 103TT', 'engine', 6, 'V8'),
-    ('Renault V4', 'engine', 15, 'V4'),
-    ('Berliet Ricardo', 'engine', 15, 'V8'),
-    ('Duratech', 'engine', 6, 'V8'),
-    ('Duratech HE', 'engine', 6, 'V8'),
-    ('Duratech SE', 'engine', 6, 'V8'),
-    ('Duratech TI VCT', 'engine', 6, 'V8'),
-    ('AMC engines', 'engine', 550, 'V8'),
-    ('E.torQ', 'engine', 14, 'V8'),
-    ('Berliet MDP', 'engine', 1, 'V8'),
-    ('podveska', 'suspension', 3, 'dlya ribalki'),
-    ('podveska 2','suspension', 4, 'dlya ohoti'),
-    ('podveska 3','suspension', 5, 'dlya goroda'),
-    ('podveska 4','suspension', 7, 'dlya vnedorojiya'),
-    ('podveska 5','suspension', 8, 'dlya kaifa');
+insert into engineer (vendor_id, name, gender, experience, salary, factory_id) values
+                                                                                   (1, 'Andrew', 'male', 13, 10000, 1),
+                                                                                   (2, 'Peter', 'male', 13, 10000, 2),
+                                                                                   (3, 'Amanda', 'female', 13, 10000, 3),
+                                                                                   (3, 'Sergey', 'male', 13, 153764, 3),
+                                                                                   (3, 'Anton', 'male', 13, 10000, 3),
+                                                                                   (4, 'Zakhar', 'male', 13, 13566, 4),
+                                                                                   (5, 'Vladimir', 'male', 13, 135135, 5),
+                                                                                   (6, 'Josef', 'male', 10, 21143, 6),
+                                                                                   (7, 'Takida', 'male', 13, 10000, 7),
+                                                                                   (8, 'Gregory', 'male', 13, 111113, 8),
+                                                                                   (9, 'Hans', 'male', 13, 26242, 9),
+                                                                                   (9, 'Frans', 'male', 13, 357357, 9),
+                                                                                   (10, 'Mikhail', 'male', 13, 12454, 10),
+                                                                                   (11, 'Alexey', 'male', 13, 124524, 11),
+                                                                                   (11, 'Kirill', 'male', 13, 12455, 11),
+                                                                                   (12, 'Pavel', 'male', 13, 999999, 12),
+                                                                                   (13, 'Dmitriy', 'male', 4, 14342342, 13),
+                                                                                   (14, 'Kate', 'female', 20, 143112, 14),
+                                                                                   (15, 'Kostyan', 'male', 40, 23253453453, 15),
+                                                                                   (16, 'Alex', 'male', 10, 12423423, 16),
+                                                                                   (17, 'Thomas', 'male', 15, 214134, 17),
+                                                                                   (18, 'Abgdish', 'male', 12, 12143242, 18),
+                                                                                   (19, 'Gadya', 'female', 4, 14234, 19),
+                                                                                   (20, 'Pepepopo', 'male', 10, 42523423, 20),
+                                                                                   (21, 'Vladimir', 'male', 9, 314342, 21),
+                                                                                   (22, 'Adolf', 'male', 41, 534532, 22),
+                                                                                   (23, 'Mikhail', 'male', 12, 445345, 23);
 
-insert into component (vendor_id, type_id, name, additional_info) values
-                                                                      (6, 1, 'ZMZ406', 'petriol injection'),
-                                                                      (6, 3, 'UAZLeftFront', 'blue with locker'),
-                                                                      (
-;
-
-
-
-insert into engineer (vendor_id, name, gender, experience, salary) values
-                                                                       (6, 'Andrew', 'male', 13, 10000),
-                                                                       (6, 'Peter', 'male', 13, 10000),
-                                                                       (3, 'Amanda', 'female', 13, 10000),
-                                                                       (3, 'Sergey', 'male', 13, 153764),
-                                                                       (3, 'Anton', 'male', 13, 10000),
-                                                                       (4, 'Zakhar', 'male', 13, 13566),
-                                                                       (6, 'Vladimir', 'male', 13, 135135),
-                                                                       (7, 'Takida', 'male', 13, 10000),
-                                                                       (8, 'Gregory', 'male', 13, 111113),
-                                                                       (9, 'Hans', 'male', 13, 26242),
-                                                                       (9, 'Frans', 'male', 13, 357357),
-                                                                       (10, 'Mikhail', 'male', 13, 12454),
-                                                                       (11, 'Alexey', 'male', 13, 124524),
-                                                                       (11, 'Kirill', 'male', 13, 12455),
-                                                                       (12, 'Pavel', 'male', 13, 999999);
-
-insert into factories (vendor_id, max_workers, productivity) values
-    (1, 1000, 10);
-
-
+insert into factory (vendor_id, max_workers, productivity) values
+                                                               (1, 1000, 10),
+                                                               (2, 1000, 10),
+                                                               (3, 1000, 10),
+                                                               (4, 1000, 10),
+                                                               (5, 1000, 10),
+                                                               (6, 1000, 10),
+                                                               (7, 1000, 10),
+                                                               (8, 1000, 10),
+                                                               (9, 1000, 10),
+                                                               (10, 1000, 10),
+                                                               (11, 1000, 10),
+                                                               (12, 1000, 10),
+                                                               (13, 1000, 10),
+                                                               (14, 1000, 10),
+                                                               (15, 1000, 10),
+                                                               (16, 1000, 10),
+                                                               (17, 1000, 10),
+                                                               (18, 1000, 10),
+                                                               (19, 1000, 10),
+                                                               (20, 1000, 10),
+                                                               (21, 1000, 10),
+                                                               (22, 1000, 10),
+                                                               (23, 1000, 10);
 
 insert into model (vendor_id, name, wheeldrive, significance, price, prod_cost, engineer_id, factory_id, sales) values
-                                                                                                                    (6, 'Patriot', '4wd', 1000000, 2990, 1000, 3, 2, 10000),
-                                                                                                                    (6, 'PatrNoEngine', '4wd', 1000000, 2990, 1000, 3, 2, 10000),
-                                                                                                                    (6, 'Buhanka', '4wd', 1000000, 2990, 1000, 3, 2, 10000)
-;
+                                                                                                                    (1, 'Patriot', '4wd', 1000000, 2990, 1000, 1, 1, 10000),
+                                                                                                                    (1, 'PatrNoEngine', '4wd', 1000000, 2990, 1000, 1, 1, 10000),
+                                                                                                                    (1, 'Buhanka', '4wd', 1000000, 2990, 1000, 1, 1, 10000),
+                                                                                                                    (14, 'Qashqai', 'fwd', 100, 5000, 2000, 18, 14, 10000000),
+                                                                                                                    (15, 'Megane', 'fwd', 100, 5000, 2500, 19, 15, 100000),
+                                                                                                                    (21, '318', 'rwd', 200, 6000, 3000, 25, 21, 1000);
 
-insert into model_components (model_id, component_id) values
-                                                          (3, 2),
-                                                          (4, 2),
-                                                          (4, 1);
+insert into model_component (model_id, component_id) values
+                                                         (1, 1),
+                                                         (3, 1),
+                                                         (4, 7),
+                                                         (4, 17),
+                                                         (4, 18),
+                                                         (4, 19),
+                                                         (4, 20),
+                                                         (4, 25),
+                                                         (5, 2),
+                                                         (5, 13),
+                                                         (5, 14),
+                                                         (5, 15),
+                                                         (5, 16),
+                                                         (5, 28),
+                                                         (6, 31),
+                                                         (6, 21),
+                                                         (6, 21),
+                                                         (6, 22),
+                                                         (6, 23),
+                                                         (6, 24);
+
+insert into "order" (model_id, quantity, order_type) values
+                                                         (1, 1000, 'gos'),
+                                                         (2, 1, 'gos'),
+                                                         (3, 5000, 'retail'),
+                                                         (4, 1000000, 'retail'),
+                                                         (5, 294340, 'retail'),
+                                                         (6, 421341, 'retail');
+
+insert into storage (model_id, amount, vendor_id) values
+                                                      (1, 1500, 1),
+                                                      (2, 1000, 1),
+                                                      (3, 100000, 1),
+                                                      (4, 10000000, 14),
+                                                      (5, 294341, 15),
+                                                      (6, 4213411, 21);
+
+insert into shipment (order_id, country_to_id, date, cost) values
+                                                               (1, 5, '2022-10-20', 100),
+                                                               (2, 3, '2022-12-31', 100),
+                                                               (3, 6, '2022-09-30', 100),
+                                                               (4, 8, '2022-11-10', 2000),
+                                                               (5, 9, '2022-12-21', 1000),
+                                                               (6, 1, '2024-01-01', 50000);
