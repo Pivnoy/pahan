@@ -6,18 +6,14 @@ import (
 )
 
 func NewRouter(handler *gin.Engine,
-	en usecase.Engine,
-	su usecase.Suspension,
 	ds usecase.Model,
-	or usecase.Orders,
+	or usecase.Order,
 	sh usecase.Shipment,
 	vd usecase.Vendor) {
 
 	h := handler.Group("/v1")
 
 	{
-		newEngineRoutes(h, en)
-		newSuspensionRoutes(h, su)
 		newModelRoutes(h, ds)
 		newOrdersRoutes(h, or)
 		newShipmentRoutes(h, sh)
