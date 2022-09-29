@@ -1,1 +1,1 @@
-drop table if exists engineer, model, component, factory, vendor, "order", storage, type, subsidy, country, shipment, country_tax cascade;
+drop table if exists engineer, model, component, factory, vendor, "order", storage, "type", subsidy, country, shipment, country_tax cascade;

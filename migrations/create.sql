@@ -24,6 +24,7 @@ create table if not exists vendor (
     name varchar(50) not null
 );
 
+
 create table if not exists "type" (
     id serial primary key,
     "type" varchar(20) not null,
@@ -51,7 +52,8 @@ create table if not exists engineer (
     name varchar(100) not null,
     gender varchar(6) not null,
     experience decimal not null check ( experience >= 0 ),
-    salary decimal check ( salary >= 0 )
+    salary decimal check ( salary >= 0 ),
+    factory_id bigint not null references factory(id)
 );
 
 create table if not exists model (
