@@ -8,10 +8,10 @@ import (
 )
 
 type ordersRoutes struct {
-	t usecase.Orders
+	t usecase.Order
 }
 
-func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Orders) {
+func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 	r := &ordersRoutes{t: t}
 
 	handler.POST("/new_order", r.doNewOrder)
@@ -30,7 +30,7 @@ func (o *ordersRoutes) doNewOrder(c *gin.Context) {
 		return
 	}
 	err := o.t.NewOrder(c.Request.Context(),
-		entity.Orders{
+		entity.Order{
 			ModelID:   request.ModelID,
 			Quantity:  request.Quantity,
 			OrderType: request.OrderType,

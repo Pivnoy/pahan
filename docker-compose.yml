@@ -6,6 +6,9 @@ services:
     container_name: 'psql'
     volumes:
       - ./migrations/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./migrations/create.sql:/docker-entrypoint-initdb.d/create.sql:ro
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

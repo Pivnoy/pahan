@@ -18,11 +18,12 @@ func NewModelRepo(pg *postgres.Postgres) *ModelRepo {
 	return &ModelRepo{pg}
 }
 
+// FIXME
 // DoNewModel Создание новой модели
 func (m *ModelRepo) DoNewModel(ctx context.Context, car entity.Model) error {
 	query := `SELECT do_new_model($1, $2, $3, $4, $5, $6, $7)`
 
-	rows, err := m.Pool.Query(ctx, query, car.WheelDrive, car.Significance, car.ProdCost, car.ProdCost, car.EngineID, car.SuspensionID, car.Name)
+	rows, err := m.Pool.Query(ctx, query, car.WheelDrive, car.Significance, car.ProdCost, car.ProdCost, 1, 2, car.Name)
 	if err != nil {
 		return fmt.Errorf("cannot execute query: %w", err)
 	}

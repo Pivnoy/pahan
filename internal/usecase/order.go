@@ -7,16 +7,16 @@ import (
 )
 
 type OrdersUseCase struct {
-	repo OrdersRp
+	repo OrderRp
 }
 
-var _ Orders = (*OrdersUseCase)(nil)
+var _ Order = (*OrdersUseCase)(nil)
 
-func NewOrdersUseCase(r OrdersRp) *OrdersUseCase {
+func NewOrdersUseCase(r OrderRp) *OrdersUseCase {
 	return &OrdersUseCase{repo: r}
 }
 
-func (o OrdersUseCase) NewOrder(ctx context.Context, order entity.Orders) error {
+func (o OrdersUseCase) NewOrder(ctx context.Context, order entity.Order) error {
 	err := o.repo.DoNewOrder(ctx, order)
 	if err != nil {
 		return fmt.Errorf("OrdersUseCase - NewOrder - s.repo.DoNewOrder: %w", err)

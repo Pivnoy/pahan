@@ -7,4 +7,5 @@ type Shipment struct {
 	OrderID     int64     `json:"order_id"`
 	CountryToID int64     `json:"country_to_id"`
 	Date        time.Time `json:"date"`
+	Cost        int64     `json:"cost"`
 }

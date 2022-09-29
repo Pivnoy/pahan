@@ -8,17 +8,17 @@ import (
 	"pahan/pkg/postgres"
 )
 
-type OrdersRepo struct {
+type OrderRepo struct {
 	*postgres.Postgres
 }
 
-var _ usecase.OrdersRp = (*OrdersRepo)(nil)
+var _ usecase.OrderRp = (*OrderRepo)(nil)
 
-func NewOrdersRepo(pg *postgres.Postgres) *OrdersRepo {
-	return &OrdersRepo{pg}
+func NewOrdersRepo(pg *postgres.Postgres) *OrderRepo {
+	return &OrderRepo{pg}
 }
 
-func (o OrdersRepo) DoNewOrder(ctx context.Context, order entity.Orders) error {
+func (o OrderRepo) DoNewOrder(ctx context.Context, order entity.Order) error {
 	query := `SELECT do_new_order($1, $2, $3)`
 
 	rows, err := o.Pool.Query(ctx, query, order.ModelID, order.Quantity, order.OrderType)
