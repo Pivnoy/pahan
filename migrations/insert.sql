@@ -103,6 +103,32 @@ insert into component (vendor_id, type_id, name, additional_info) values
                                                                       (21, 15, 'DCT', 'Robot'),
                                                                       (21, 13, '6HP19', 'AT 6-speed');
 
+insert into factory (vendor_id, max_workers, productivity) values
+                                                               (1, 1000, 10),
+                                                               (2, 1000, 10),
+                                                               (3, 1000, 10),
+                                                               (4, 1000, 10),
+                                                               (5, 1000, 10),
+                                                               (6, 1000, 10),
+                                                               (7, 1000, 10),
+                                                               (8, 1000, 10),
+                                                               (9, 1000, 10),
+                                                               (10, 1000, 10),
+                                                               (11, 1000, 10),
+                                                               (12, 1000, 10),
+                                                               (13, 1000, 10),
+                                                               (14, 1000, 10),
+                                                               (15, 1000, 10),
+                                                               (16, 1000, 10),
+                                                               (17, 1000, 10),
+                                                               (18, 1000, 10),
+                                                               (19, 1000, 10),
+                                                               (20, 1000, 10),
+                                                               (21, 1000, 10),
+                                                               (22, 1000, 10),
+                                                               (23, 1000, 10);
+
+
 insert into engineer (vendor_id, name, gender, experience, salary, factory_id) values
                                                                                    (1, 'Andrew', 'male', 13, 10000, 1),
                                                                                    (2, 'Peter', 'male', 13, 10000, 2),
@@ -132,30 +158,6 @@ insert into engineer (vendor_id, name, gender, experience, salary, factory_id) v
                                                                                    (22, 'Adolf', 'male', 41, 534532, 22),
                                                                                    (23, 'Mikhail', 'male', 12, 445345, 23);
 
-insert into factory (vendor_id, max_workers, productivity) values
-                                                               (1, 1000, 10),
-                                                               (2, 1000, 10),
-                                                               (3, 1000, 10),
-                                                               (4, 1000, 10),
-                                                               (5, 1000, 10),
-                                                               (6, 1000, 10),
-                                                               (7, 1000, 10),
-                                                               (8, 1000, 10),
-                                                               (9, 1000, 10),
-                                                               (10, 1000, 10),
-                                                               (11, 1000, 10),
-                                                               (12, 1000, 10),
-                                                               (13, 1000, 10),
-                                                               (14, 1000, 10),
-                                                               (15, 1000, 10),
-                                                               (16, 1000, 10),
-                                                               (17, 1000, 10),
-                                                               (18, 1000, 10),
-                                                               (19, 1000, 10),
-                                                               (20, 1000, 10),
-                                                               (21, 1000, 10),
-                                                               (22, 1000, 10),
-                                                               (23, 1000, 10);
 
 insert into model (vendor_id, name, wheeldrive, significance, price, prod_cost, engineer_id, factory_id, sales) values
                                                                                                                     (1, 'Patriot', '4wd', 1000000, 2990, 1000, 1, 1, 10000),
@@ -163,7 +165,7 @@ insert into model (vendor_id, name, wheeldrive, significance, price, prod_cost, 
                                                                                                                     (1, 'Buhanka', '4wd', 1000000, 2990, 1000, 1, 1, 10000),
                                                                                                                     (14, 'Qashqai', 'fwd', 100, 5000, 2000, 18, 14, 10000000),
                                                                                                                     (15, 'Megane', 'fwd', 100, 5000, 2500, 19, 15, 100000),
-                                                                                                                    (21, '318', 'rwd', 200, 6000, 3000, 25, 21, 1000);
+                                                                                                                    (21, '318', 'rwd', 200, 6000, 3000, 23, 21, 1000);
 
 insert into model_component (model_id, component_id) values
                                                          (1, 1),
@@ -180,7 +182,7 @@ insert into model_component (model_id, component_id) values
                                                          (5, 15),
                                                          (5, 16),
                                                          (5, 28),
-                                                         (6, 31),
+                                                         (6, 30),
                                                          (6, 21),
                                                          (6, 21),
                                                          (6, 22),
