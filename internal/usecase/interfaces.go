@@ -6,6 +6,16 @@ import (
 )
 
 type (
+
+	Subsidy interface {
+		GetAllSubsidies(context.Context) ([]entity.Subsidy, error)
+	}
+
+	SubsidyRp interface {
+		GetSubsidies(context.Context) ([]entity.Subsidy, error)
+	}
+
+
 	Model interface {
 		NewModel(context.Context, entity.Model) error
 		GetAllModels(context.Context) ([]entity.Model, error)
