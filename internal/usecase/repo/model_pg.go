@@ -18,6 +18,41 @@ func NewModelRepo(pg *postgres.Postgres) *ModelRepo {
 	return &ModelRepo{pg}
 }
 
+func (m *ModelRepo) GetModels(ctx context.Context) ([]entity.Model, error) {
+	query := `SELECT id, vendor_id, name, wheeldrive, significance, price, prod_cost, engineer_id, factory_id, sales FROM get_all_models();`
+
+	rows, err := m.Pool.Query(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+
+	var models []entity.Model
+
+	for rows.Next() {
+		var model entity.Model
+		err = rows.Scan(
+			&model.ID,
+			&model.VendorID,
+			&model.Name,
+			&model.WheelDrive,
+			&model.Significance,
+			&model.Price,
+			&model.ProdCost,
+			&model.EngineerID,
+			&model.FactoryID,
+			&model.Sales,
+		)
+
+		if err != nil {
+			return nil, fmt.Errorf("error in parsing model: %w", err)
+		}
+
+		models = append(models, model)
+	}
+	return models, nil
+}
+
 // FIXME
 // DoNewModel Создание новой модели
 func (m *ModelRepo) DoNewModel(ctx context.Context, car entity.Model) error {

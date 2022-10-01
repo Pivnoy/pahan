@@ -8,10 +8,12 @@ import (
 type (
 	Model interface {
 		NewModel(context.Context, entity.Model) error
+		GetAllModels(context.Context) ([]entity.Model, error)
 	}
 
 	ModelRp interface {
 		DoNewModel(context.Context, entity.Model) error
+		GetModels(context.Context) ([]entity.Model, error)
 	}
 
 	CountryRp interface {

@@ -9,7 +9,7 @@ func NewRouter(handler *gin.Engine,
 	ds usecase.Model,
 	or usecase.Order,
 	sh usecase.Shipment,
-	vd usecase.Vendor) {
+	vd usecase.Vendor,) {
 
 	h := handler.Group("/v1")
 
