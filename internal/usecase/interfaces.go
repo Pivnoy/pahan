@@ -16,10 +16,6 @@ type (
 		GetModels(context.Context) ([]entity.Model, error)
 	}
 
-	CountryRp interface {
-		GetCountries(context.Context) ([]entity.Country, error)
-	}
-
 	Vendor interface {
 		GetAllVendors(context.Context) ([]entity.Vendor, error)
 	}
