@@ -6,6 +6,24 @@ import (
 )
 
 type (
+
+	Engineer interface {
+		GetAllEngineerByIdVendor(context.Context, int64) ([]entity.Engineer, error)
+	}
+
+	EngineerRp interface {
+		GetEngineerByIdVendor(context.Context, int64) ([]entity.Engineer, error)
+	}
+
+	Subsidy interface {
+		GetAllSubsidies(context.Context) ([]entity.Subsidy, error)
+	}
+
+	SubsidyRp interface {
+		GetSubsidies(context.Context) ([]entity.Subsidy, error)
+	}
+
+
 	Model interface {
 		NewModel(context.Context, entity.Model) error
 		GetAllModels(context.Context) ([]entity.Model, error)
@@ -14,10 +32,6 @@ type (
 	ModelRp interface {
 		DoNewModel(context.Context, entity.Model) error
 		GetModels(context.Context) ([]entity.Model, error)
-	}
-
-	CountryRp interface {
-		GetCountries(context.Context) ([]entity.Country, error)
 	}
 
 	Vendor interface {

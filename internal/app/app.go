@@ -1,17 +1,18 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"os"
 	"os/signal"
 	"pahan/config"
-	"pahan/internal/controller/http/v1"
+	v1 "pahan/internal/controller/http/v1"
 	"pahan/internal/usecase"
 	"pahan/internal/usecase/repo"
 	"pahan/pkg/httpserver"
 	"pahan/pkg/postgres"
 	"syscall"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Run(cfg *config.Config) {
@@ -24,10 +25,12 @@ func Run(cfg *config.Config) {
 	modelUseCase := usecase.NewModelUseCase(repo.NewModelRepo(pg))
 	ordersUseCase := usecase.NewOrdersUseCase(repo.NewOrdersRepo(pg))
 	shipmentUseCase := usecase.NewShipmentUseCase(repo.NewShipmentRepo(pg))
-	vendorUseCse := usecase.NewVendorUseCase(repo.NewVendorRepo(pg))
+	vendorUseCase := usecase.NewVendorUseCase(repo.NewVendorRepo(pg))
+	subsidyUseCase := usecase.NewSubsidyUseCase(repo.NewSubsidyRepo(pg))
+	engineerUseCase := usecase.NewEngineerUseCase(repo.NewEngineerRepo(pg))
 	// http Server
 	handler := gin.New()
-	v1.NewRouter(handler, modelUseCase, ordersUseCase, shipmentUseCase, vendorUseCse)
+	v1.NewRouter(handler, modelUseCase, ordersUseCase, shipmentUseCase, vendorUseCase, subsidyUseCase, engineerUseCase)
 
 	serv := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 	interruption := make(chan os.Signal, 1)
