@@ -144,35 +144,37 @@ $$ language 'plpgsql';
 
 
 
-/* функция 10 - получение цены и привод из супсидии по её id */
-create or replace function get_price_and_wheeldrive_by_id(id_by integer)
-returns table(require_price decimal, required_wd varchar(3)) as $$
-begin
-    return query select s.require_price, s.required_wd from subsidy as s where s.id = id_by;
-end;
-$$ language 'plpgsql';
-
-
-
-/* функция 11 - удаление субсидии */
-create or replace function delete_subsidy(id_by integer)
+/* функция 10 - прием субсидии - большая функция*/
+create or replace function accept_subsidies(subsidy_id_new integer,
+                                            vendor_id_new integer,
+                                            name_new varchar(20),
+                                            significance_new integer,
+                                            engineer_id_new bigint,
+                                            factory_id_new bigint,
+                                            component_id_new_engine bigint,
+                                            component_id_new_door bigint,
+                                            component_id_new_bumper bigint,
+                                            component_id_new_transmission bigint)
 returns void as $$
+declare
+    required_price_by_id decimal = (select s.require_price from subsidy s where s.id = subsidy_id_new);
+    required_wd_by_id varchar(3) = (select s.required_wd from subsidy s where s.id = subsidy_id_new);
+    new_model_id integer;
 begin
-    delete from subsidy as s where s.id = id_by;
-end;
-$$ language 'plpgsql';
 
-
-
-/* функция 12 - создание новой модели */
-create or replace function create_new_model(vendor_id_by integer, name_by varchar(20),
-wheeldrive_by varchar(3), significance_by int, price_by decimal, prod_cost_by decimal, engineer_id_by bigint, factory_id_by bigint)
-returns void as $$
-begin
     insert into model (vendor_id, name, wheeldrive, significance, price, prod_cost, engineer_id, factory_id, sales)
-    values (vendor_id_by, name_by, wheeldrive_by, significance_by, price_by, prod_cost_by, engineer_id_by, factory_id_by, 0);
+    values (vendor_id_new, name_new, required_wd_by_id, significance_new, required_price_by_id, required_price_by_id, engineer_id_new, factory_id_new, 0);
+
+    new_model_id = (select max(id) from model);
+
+    insert into model_component (model_id, component_id) values (new_model_id, component_id_new_engine);
+    insert into model_component (model_id, component_id) values (new_model_id, component_id_new_door);
+    insert into model_component (model_id, component_id) values (new_model_id, component_id_new_bumper);
+    insert into model_component (model_id, component_id) values (new_model_id, component_id_new_transmission);
+
+    delete from subsidy s where s.id = subsidy_id_new;
+
 end;
 $$ language 'plpgsql';
-
 
 
