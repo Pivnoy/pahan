@@ -1,17 +1,18 @@
 package app
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"os"
 	"os/signal"
 	"pahan/config"
-	"pahan/internal/controller/http/v1"
+	v1 "pahan/internal/controller/http/v1"
 	"pahan/internal/usecase"
 	"pahan/internal/usecase/repo"
 	"pahan/pkg/httpserver"
 	"pahan/pkg/postgres"
 	"syscall"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Run(cfg *config.Config) {
