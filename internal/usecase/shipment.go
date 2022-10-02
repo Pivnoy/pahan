@@ -16,7 +16,7 @@ func NewShipmentUseCase(s ShipmentRp) *ShipmentUseCase {
 
 var _ Shipment = (*ShipmentUseCase)(nil)
 
-func (s ShipmentUseCase) NewShipment(ctx context.Context, shipment entity.Shipment) error {
+func (s *ShipmentUseCase) NewShipment(ctx context.Context, shipment entity.Shipment) error {
 	err := s.repo.DoNewShipment(ctx, shipment)
 	if err != nil {
 		return fmt.Errorf("ShipmentUseCase - NewShipment - s.repo.DoNewShipment: %w", err)
