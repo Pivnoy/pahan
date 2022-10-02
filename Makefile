@@ -4,7 +4,7 @@ run_all:
 
 
 run_app:
-	docker rmi pahan_app -f
+	docker-compose rm -s -v app
 	docker-compose up -d app
 
 run_pg:
