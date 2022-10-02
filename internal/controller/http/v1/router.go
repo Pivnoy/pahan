@@ -10,7 +10,8 @@ func NewRouter(handler *gin.Engine,
 	or usecase.Order,
 	sh usecase.Shipment,
 	vd usecase.Vendor,
-	sb usecase.Subsidy) {
+	sb usecase.Subsidy,
+	en usecase.Engineer) {
 
 	h := handler.Group("/v1")
 
@@ -20,5 +21,6 @@ func NewRouter(handler *gin.Engine,
 		newShipmentRoutes(h, sh)
 		newVendorRoutes(h, vd)
 		newSubsidyRoutes(h, sb)
+		newEngineerRoutes(h, en)
 	}
 }

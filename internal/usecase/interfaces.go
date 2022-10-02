@@ -7,6 +7,14 @@ import (
 
 type (
 
+	Engineer interface {
+		GetAllEngineerByIdVendor(context.Context, int64) ([]entity.Engineer, error)
+	}
+
+	EngineerRp interface {
+		GetEngineerByIdVendor(context.Context, int64) ([]entity.Engineer, error)
+	}
+
 	Subsidy interface {
 		GetAllSubsidies(context.Context) ([]entity.Subsidy, error)
 	}
