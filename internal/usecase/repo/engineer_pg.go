@@ -18,10 +18,10 @@ func NewEngineerRepo(pg *postgres.Postgres) *EngineerRepo {
 
 var _ usecase.EngineerRp = (*EngineerRepo)(nil)
 
-func (er *EngineerRepo) GetEngineerByIdVendor(ctx context.Context, vendor_id int64) ([]entity.Engineer, error) {
+func (er *EngineerRepo) GetEngineerByIdVendor(ctx context.Context, vendorID int64) ([]entity.Engineer, error) {
 	query := `SELECT id, vendor_id, name, gender, experience, salary, factory_id FROM get_engineer_by_vendor($1)`
 
-	rows, err := er.Pool.Query(ctx, query, vendor_id)
+	rows, err := er.Pool.Query(ctx, query, vendorID)
 	if err != nil {
 		return nil, fmt.Errorf("cannot execute query: %w", err)
 	}
