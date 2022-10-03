@@ -46,6 +46,29 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v1/get_types": {
+            "get": {
+                "description": "Get all types",
+                "summary": "list of types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Type"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -63,6 +86,20 @@ const docTemplate = `{
                 },
                 "vendor_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "entity.Type": {
+            "type": "object",
+            "properties": {
+                "additional_info": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
                 }
             }
         },

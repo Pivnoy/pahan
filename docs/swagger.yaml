@@ -11,6 +11,15 @@ definitions:
       vendor_id:
         type: integer
     type: object
+  entity.Type:
+    properties:
+      additional_info:
+        type: string
+      id:
+        type: integer
+      type:
+        type: string
+    type: object
   internal_controller_http_v1.errResponse:
     properties:
       error:
@@ -49,4 +58,19 @@ paths:
           schema:
             $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: list of factories
+  /v1/get_types:
+    get:
+      description: Get all types
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Type'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: list of types
 swagger: "2.0"
