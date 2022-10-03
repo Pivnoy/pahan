@@ -1,0 +1,52 @@
+basePath: /
+definitions:
+  entity.Factory:
+    properties:
+      id:
+        type: integer
+      max_workers:
+        type: integer
+      productivity:
+        type: integer
+      vendor_id:
+        type: integer
+    type: object
+  internal_controller_http_v1.errResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  pahan_internal_controller_http_v1.errResponse:
+    properties:
+      error:
+        type: string
+    type: object
+host: localhost:9000
+info:
+  contact: {}
+  description: Курсовая работа по предмету "Информационные системы и базы данных"
+    студента группы P34312, Соловьева Павла
+  title: Автомобилестроение в экономике
+  version: "1.0"
+paths:
+  /v1/get_factories:
+    get:
+      description: Get all factories with current vendorID
+      parameters:
+      - description: id of a vendor
+        in: query
+        name: vendor-id
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Factory'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: list of factories
+swagger: "2.0"
