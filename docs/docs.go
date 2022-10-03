@@ -16,6 +16,34 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/create_subsidy": {
+            "post": {
+                "description": "Create and link subsidy with dependent values",
+                "summary": "create subsidy",
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createSubsidyRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/get_factories": {
             "get": {
                 "description": "Get all factories with current vendorID",
@@ -41,7 +69,30 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/get_subsidies": {
+            "get": {
+                "description": "Get all subsidies",
+                "summary": "list of subsidies",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Subsidy"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -89,6 +140,23 @@ const docTemplate = `{
                 }
             }
         },
+        "entity.Subsidy": {
+            "type": "object",
+            "properties": {
+                "country_id": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "require_price": {
+                    "type": "integer"
+                },
+                "required_wd": {
+                    "type": "string"
+                }
+            }
+        },
         "entity.Type": {
             "type": "object",
             "properties": {
@@ -103,10 +171,38 @@ const docTemplate = `{
                 }
             }
         },
+        "internal_controller_http_v1.createSubsidyRequest": {
+            "type": "object",
+            "properties": {
+                "country-id-by": {
+                    "type": "integer"
+                },
+                "require-price-by": {
+                    "type": "number"
+                },
+                "required-wd-by": {
+                    "type": "string"
+                }
+            }
+        },
         "internal_controller_http_v1.errResponse": {
             "type": "object",
             "properties": {
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "pahan_internal_controller_http_v1.createSubsidyRequest": {
+            "type": "object",
+            "properties": {
+                "country-id-by": {
+                    "type": "integer"
+                },
+                "require-price-by": {
+                    "type": "number"
+                },
+                "required-wd-by": {
                     "type": "string"
                 }
             }

@@ -5,6 +5,7 @@ run_all:
 
 run_app:
 	docker rmi pahan_app -f
+	swag init -g /cmd/main/main.go --parseInternal --parseDependency
 	docker-compose up -d app
 
 run_pg:

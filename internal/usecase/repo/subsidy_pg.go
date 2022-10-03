@@ -48,7 +48,7 @@ func (sr *SubsidyRepo) GetSubsidies(ctx context.Context) ([]entity.Subsidy, erro
 }
 
 func (sr *SubsidyRepo) CreateAndLinkSubsidy(ctx context.Context, countryIDBy int64, requirePriceBy float64, requiredWdBy string) error {
-	query := `create_subsidy($1, $2, $3)`
+	query := `SELECT create_subsidy($1, $2, $3)`
 
 	_, err := sr.Pool.Query(ctx, query, countryIDBy, requirePriceBy, requiredWdBy)
 	if err != nil {

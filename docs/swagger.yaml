@@ -11,6 +11,17 @@ definitions:
       vendor_id:
         type: integer
     type: object
+  entity.Subsidy:
+    properties:
+      country_id:
+        type: integer
+      id:
+        type: integer
+      require_price:
+        type: integer
+      required_wd:
+        type: string
+    type: object
   entity.Type:
     properties:
       additional_info:
@@ -20,9 +31,27 @@ definitions:
       type:
         type: string
     type: object
+  internal_controller_http_v1.createSubsidyRequest:
+    properties:
+      country-id-by:
+        type: integer
+      require-price-by:
+        type: number
+      required-wd-by:
+        type: string
+    type: object
   internal_controller_http_v1.errResponse:
     properties:
       error:
+        type: string
+    type: object
+  pahan_internal_controller_http_v1.createSubsidyRequest:
+    properties:
+      country-id-by:
+        type: integer
+      require-price-by:
+        type: number
+      required-wd-by:
         type: string
     type: object
   pahan_internal_controller_http_v1.errResponse:
@@ -38,6 +67,24 @@ info:
   title: Автомобилестроение в экономике
   version: "1.0"
 paths:
+  /v1/create_subsidy:
+    post:
+      description: Create and link subsidy with dependent values
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/pahan_internal_controller_http_v1.createSubsidyRequest'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+      summary: create subsidy
   /v1/get_factories:
     get:
       description: Get all factories with current vendorID
@@ -56,8 +103,23 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: list of factories
+  /v1/get_subsidies:
+    get:
+      description: Get all subsidies
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Subsidy'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+      summary: list of subsidies
   /v1/get_types:
     get:
       description: Get all types

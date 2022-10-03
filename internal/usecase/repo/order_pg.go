@@ -21,10 +21,9 @@ func NewOrdersRepo(pg *postgres.Postgres) *OrderRepo {
 func (o OrderRepo) DoNewOrder(ctx context.Context, order entity.Order) error {
 	query := `SELECT do_new_order($1, $2, $3)`
 
-	rows, err := o.Pool.Query(ctx, query, order.ModelID, order.Quantity, order.OrderType)
+	_, err := o.Pool.Query(ctx, query, order.ModelID, order.Quantity, order.OrderType)
 	if err != nil {
 		return fmt.Errorf("cannot execute query: %w", err)
 	}
-	defer rows.Close()
 	return nil
 }
