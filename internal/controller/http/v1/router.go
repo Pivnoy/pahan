@@ -2,6 +2,8 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"pahan/internal/usecase"
 )
 
@@ -16,6 +18,8 @@ func NewRouter(handler *gin.Engine,
 	cm usecase.Component) {
 
 	h := handler.Group("/v1")
+
+	handler.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	{
 		newModelRoutes(h, ds)

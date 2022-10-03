@@ -22,6 +22,13 @@ type factoryResponse struct {
 	Fct []entity.Factory `json:"factories"`
 }
 
+// GetFactoriesByVendor godoc
+// @Summary list of factories
+// @Description Get all factories with current vendorID
+// @Param       vendor-id  query   string  false "id of a vendor"
+// @Success     200 {array}  entity.Factory
+// @Failure     400 {object} errResponse
+// @Router      /v1/get_factories [get]
 func (f *factoryRoutes) getFactoriesByVendor(c *gin.Context) {
 	vendorIDParam := c.Query("vendor-id")
 	vendorID, err := strconv.ParseInt(vendorIDParam, 10, 64)

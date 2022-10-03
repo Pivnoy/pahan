@@ -1,0 +1,79 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Курсовая работа по предмету \"Информационные системы и базы данных\" студента группы P34312, Соловьева Павла",
+        "title": "Автомобилестроение в экономике",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:9000",
+    "basePath": "/",
+    "paths": {
+        "/v1/get_factories": {
+            "get": {
+                "description": "Get all factories with current vendorID",
+                "summary": "list of factories",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id of a vendor",
+                        "name": "vendor-id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Factory"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "entity.Factory": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "max_workers": {
+                    "type": "integer"
+                },
+                "productivity": {
+                    "type": "integer"
+                },
+                "vendor_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "internal_controller_http_v1.errResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "pahan_internal_controller_http_v1.errResponse": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
