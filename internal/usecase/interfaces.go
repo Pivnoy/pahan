@@ -71,4 +71,12 @@ type (
 	Component interface {
 		GetComponentsByVendorAndType(context.Context, int64, int64) ([]entity.Component, error)
 	}
+
+	TypeRp interface {
+		GetAllTypes(context.Context) ([]entity.Type, error)
+	}
+
+	Type interface {
+		GetTypes(context.Context) ([]entity.Type, error)
+	}
 )

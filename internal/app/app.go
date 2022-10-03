@@ -30,6 +30,7 @@ func Run(cfg *config.Config) {
 	engineerUseCase := usecase.NewEngineerUseCase(repo.NewEngineerRepo(pg))
 	factoryUseCase := usecase.NewFactoryUseCase(repo.NewFactoryRepo(pg))
 	componentUseCase := usecase.NewComponentUseCase(repo.NewComponentRepo(pg))
+	typeUseCase := usecase.NewTypeUseCase(repo.NewTypeRepo(pg))
 	// http Server
 	handler := gin.New()
 	v1.NewRouter(handler,
@@ -40,7 +41,8 @@ func Run(cfg *config.Config) {
 		subsidyUseCase,
 		engineerUseCase,
 		factoryUseCase,
-		componentUseCase)
+		componentUseCase,
+		typeUseCase)
 
 	serv := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 	interruption := make(chan os.Signal, 1)
