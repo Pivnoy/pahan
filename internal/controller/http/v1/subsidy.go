@@ -16,6 +16,7 @@ func newSubsidyRoutes(handler *gin.RouterGroup, t usecase.Subsidy) {
 	r := subsidyRoutes{t: t}
 
 	handler.GET("/subsidies", r.getSubsidies)
+	handler.POST("create_subsidy", r.createSubsidy)
 }
 
 type subsidyResponse struct {
@@ -29,4 +30,8 @@ func (s *subsidyRoutes) getSubsidies(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, subsidyResponse{listSubsidies})
+}
+
+func (s *subsidyRoutes) createSubsidy(c *gin.Context) {
+
 }
