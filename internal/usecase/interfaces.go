@@ -16,10 +16,12 @@ type (
 
 	Subsidy interface {
 		GetAllSubsidies(context.Context) ([]entity.Subsidy, error)
+		CreateSubsidy(context.Context, int64, float64, string) error
 	}
 
 	SubsidyRp interface {
 		GetSubsidies(context.Context) ([]entity.Subsidy, error)
+		CreateAndLinkSubsidy(context.Context, int64, float64, string) error
 	}
 
 	Model interface {
