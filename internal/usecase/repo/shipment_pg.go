@@ -18,8 +18,8 @@ func NewShipmentRepo(pg *postgres.Postgres) *ShipmentRepo {
 
 var _ usecase.ShipmentRp = (*ShipmentRepo)(nil)
 
-func (s ShipmentRepo) DoNewShipment(ctx context.Context, shipment entity.Shipment) error {
-	query := `SELECT do_new_shipment($1, $2, $3)`
+func (s ShipmentRepo) CreateNewShipment(ctx context.Context, shipment entity.Shipment) error {
+	query := `SELECT create_shipment($1, $2, $3)`
 
 	rows, err := s.Pool.Query(ctx, query, shipment.OrderID, shipment.CountryToID, shipment.Date)
 	if err != nil {

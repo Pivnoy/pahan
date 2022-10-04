@@ -46,7 +46,7 @@ type createSubsidyRequest struct {
 }
 
 func (c *createSubsidyRequest) validate() bool {
-	return len(c.RequiredWdBy) != 3 &&
+	return len(c.RequiredWdBy) == 3 &&
 		c.CountryIDBy > 0 &&
 		c.RequirePriceBy > 0
 }

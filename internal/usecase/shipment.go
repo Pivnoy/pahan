@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"context"
-	"fmt"
 	"pahan/internal/entity"
 )
 
@@ -16,10 +15,6 @@ func NewShipmentUseCase(s ShipmentRp) *ShipmentUseCase {
 
 var _ Shipment = (*ShipmentUseCase)(nil)
 
-func (s *ShipmentUseCase) NewShipment(ctx context.Context, shipment entity.Shipment) error {
-	err := s.repo.DoNewShipment(ctx, shipment)
-	if err != nil {
-		return fmt.Errorf("ShipmentUseCase - NewShipment - s.repo.DoNewShipment: %w", err)
-	}
-	return nil
+func (s *ShipmentUseCase) CreateShipment(ctx context.Context, shipment entity.Shipment) error {
+	return s.repo.CreateNewShipment(ctx, shipment)
 }

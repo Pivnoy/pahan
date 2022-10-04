@@ -50,19 +50,21 @@ func (sr *SubsidyRepo) GetSubsidies(ctx context.Context) ([]entity.Subsidy, erro
 func (sr *SubsidyRepo) CreateAndLinkSubsidy(ctx context.Context, countryIDBy int64, requirePriceBy float64, requiredWdBy string) error {
 	query := `SELECT create_subsidy($1, $2, $3)`
 
-	_, err := sr.Pool.Query(ctx, query, countryIDBy, requirePriceBy, requiredWdBy)
+	rows, err := sr.Pool.Query(ctx, query, countryIDBy, requirePriceBy, requiredWdBy)
 	if err != nil {
 		return fmt.Errorf("cannot execute query: %w", err)
 	}
+	defer rows.Close()
 	return nil
 }
 
 func (sr *SubsidyRepo) AcceptSubsidy(ctx context.Context, subsidyID int64, model entity.Model, componentEngineID, componentDoorID, componentBumperID, componentTransmissionID int64) error {
 	query := `SELECT accept_subsidies($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
 
-	_, err := sr.Pool.Query(ctx, query, subsidyID, model.VendorID, model.Name, model.Significance, model.EngineerID, model.FactoryID, componentEngineID, componentDoorID, componentBumperID, componentTransmissionID)
+	rows, err := sr.Pool.Query(ctx, query, subsidyID, model.VendorID, model.Name, model.Significance, model.EngineerID, model.FactoryID, componentEngineID, componentDoorID, componentBumperID, componentTransmissionID)
 	if err != nil {
 		return fmt.Errorf("cannot execute query: %w", err)
 	}
+	defer rows.Close()
 	return nil
 }
