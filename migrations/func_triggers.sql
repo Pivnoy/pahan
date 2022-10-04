@@ -178,3 +178,16 @@ end;
 $$ language 'plpgsql';
 
 
+/* пример запроса с входнымми данными к 10 функции */
+select accept_subsidies(
+    1,
+    1,
+    'loooool',
+    69,
+    1,
+    1,
+    1,
+    2,
+    3,
+    4
+    );

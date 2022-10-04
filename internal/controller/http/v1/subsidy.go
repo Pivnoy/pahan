@@ -17,6 +17,7 @@ func newSubsidyRoutes(handler *gin.RouterGroup, t usecase.Subsidy) {
 
 	handler.GET("/get_subsidies", r.getSubsidies)
 	handler.POST("/create_subsidy", r.createSubsidy)
+	handler.POST("/accept_subsidy", r.acceptSubsidy)
 }
 
 type subsidyResponse struct {
@@ -69,6 +70,47 @@ func (s *subsidyRoutes) createSubsidy(c *gin.Context) {
 		return
 	}
 	err := s.t.CreateSubsidy(c.Request.Context(), sbs.CountryIDBy, sbs.RequirePriceBy, sbs.RequiredWdBy)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, nil)
+}
+
+type createAcceptSubsidyRequest struct {
+	SubsidyID               int64  `json:"subsidy-id"`
+	VendorID                int64  `json:"vendor-id"`
+	Name                    string `json:"name"`
+	Significance            int64  `json:"significance"`
+	EngineerID              int64  `json:"engineer-id"`
+	FactoryID               int64  `json:"factory-id"`
+	ComponentEngineID       int64  `json:"component-engine-id"`
+	ComponentDoorID         int64  `json:"component-door-id"`
+	ComponentBumperID       int64  `json:"component-bumper-id"`
+	ComponentTransmissionID int64  `json:"component-transmission-id"`
+}
+
+func (s *subsidyRoutes) acceptSubsidy(c *gin.Context) {
+	var casr createAcceptSubsidyRequest
+	if err := c.ShouldBindJSON(&casr); err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	err := s.t.AcceptSubsidyUs(
+		c.Request.Context(),
+		casr.SubsidyID,
+		entity.Model{
+			VendorID:     casr.VendorID,
+			Name:         casr.Name,
+			Significance: casr.Significance,
+			EngineerID:   casr.EngineerID,
+			FactoryID:    casr.FactoryID,
+		},
+		casr.ComponentEngineID,
+		casr.ComponentDoorID,
+		casr.ComponentBumperID,
+		casr.ComponentTransmissionID,
+	)
 	if err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
