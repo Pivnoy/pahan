@@ -90,26 +90,33 @@ type createAcceptSubsidyRequest struct {
 	ComponentTransmissionID int64  `json:"component-transmission-id"`
 }
 
+// AcceptSubsidy godoc
+// @Summary accept subsidy
+// @Description Accept and link subsidy
+// @Param 		request body createAcceptSubsidyRequest true "query params"
+// @Success     200 {object} nil
+// @Failure     400 {object} errResponse
+// @Router      /v1/accept_subsidy [post]
 func (s *subsidyRoutes) acceptSubsidy(c *gin.Context) {
-	var casr createAcceptSubsidyRequest
-	if err := c.ShouldBindJSON(&casr); err != nil {
+	var cars createAcceptSubsidyRequest
+	if err := c.ShouldBindJSON(&cars); err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 	err := s.t.AcceptSubsidyUs(
 		c.Request.Context(),
-		casr.SubsidyID,
+		cars.SubsidyID,
 		entity.Model{
-			VendorID:     casr.VendorID,
-			Name:         casr.Name,
-			Significance: casr.Significance,
-			EngineerID:   casr.EngineerID,
-			FactoryID:    casr.FactoryID,
+			VendorID:     cars.VendorID,
+			Name:         cars.Name,
+			Significance: cars.Significance,
+			EngineerID:   cars.EngineerID,
+			FactoryID:    cars.FactoryID,
 		},
-		casr.ComponentEngineID,
-		casr.ComponentDoorID,
-		casr.ComponentBumperID,
-		casr.ComponentTransmissionID,
+		cars.ComponentEngineID,
+		cars.ComponentDoorID,
+		cars.ComponentBumperID,
+		cars.ComponentTransmissionID,
 	)
 	if err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())

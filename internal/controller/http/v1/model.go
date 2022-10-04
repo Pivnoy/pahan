@@ -14,28 +14,29 @@ type designRoutes struct {
 func newModelRoutes(handler *gin.RouterGroup, t usecase.Model) {
 	r := &designRoutes{t: t}
 
-	
-	handler.GET("/models", r.getAllModels)
+	handler.GET("/get_models", r.getAllModels)
 	handler.POST("/new_design", r.doNewDesign)
 }
-
-
 
 type modelResponse struct {
 	Models []entity.Model `json:"models"`
 }
 
+// GetAllModels godoc
+// @Summary list of models
+// @Description Get all models
+// @Success     200 {array}  entity.Model
+// @Failure     400 {object} errResponse
+// @Router      /v1/get_models [get]
 func (r *designRoutes) getAllModels(c *gin.Context) {
 	listModels, err := r.t.GetAllModels(c.Request.Context())
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
-	} 
+	}
 	c.JSON(http.StatusOK, modelResponse{listModels})
 
 }
-
-
 
 // FIXME
 // структура для тела запроса

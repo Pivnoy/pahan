@@ -16,13 +16,20 @@ type engineerRoute struct {
 func newEngineerRoutes(handler *gin.RouterGroup, en usecase.Engineer) {
 	r := engineerRoute{en: en}
 
-	handler.GET("/engineer-by-vendor-id", r.getEngineerByIdVendor)
+	handler.GET("/get_engineers_by_vendor", r.getEngineerByIdVendor)
 }
 
 type engineerResponse struct {
 	Engineer []entity.Engineer `json:"engineer"`
 }
 
+// GetEngineersByVendorID godoc
+// @Summary list of engineers
+// @Description Get all engineers with current vendorID
+// @Param       vendor-id  query   string  true "id of a vendor"
+// @Success     200 {array}  entity.Engineer
+// @Failure     400 {object} errResponse
+// @Router      /v1/get_engineers_by_vendor [get]
 func (en *engineerRoute) getEngineerByIdVendor(c *gin.Context) {
 
 	vendorIDString := c.Query("vendor-id")

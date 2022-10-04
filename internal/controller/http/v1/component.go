@@ -15,18 +15,21 @@ type componentRoutes struct {
 func newComponentRoutes(handler *gin.RouterGroup, t usecase.Component) {
 	r := &componentRoutes{t: t}
 
-	handler.GET("/get_components", r.getComponentsByVendorAndType)
+	handler.GET("/get_components_by_vendor_and_type", r.getComponentsByVendorAndType)
 }
 
 type componentResponse struct {
 	Cmp []entity.Component `json:"components"`
 }
 
-type componetsRequest struct {
-	VendorID int64 `json:"vendor-id"`
-	TypeID   int64 `json:"type-id"`
-}
-
+// GetComponentByVendorIDAndTypeID godoc
+// @Summary get component
+// @Description Get all components depend on vendorID and typeID
+// @Param       vendor-id  query   string  true "id of a vendor"
+// @Param       type-id    query   string  true "id of a type"
+// @Success     200 {array}  entity.Component
+// @Failure     400 {object} errResponse
+// @Router      /v1/get_components_by_vendor_and_type [get]
 func (f *componentRoutes) getComponentsByVendorAndType(c *gin.Context) {
 	vendorIDParam := c.Query("vendor-id")
 	typeIDParam := c.Query("type-id")

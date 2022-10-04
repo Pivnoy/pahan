@@ -15,7 +15,7 @@ type factoryRoutes struct {
 func newFactoryRoutes(handler *gin.RouterGroup, t usecase.Factory) {
 	f := &factoryRoutes{t: t}
 
-	handler.GET("/get_factories", f.getFactoriesByVendor)
+	handler.GET("/get_factories_by_vendor", f.getFactoriesByVendor)
 }
 
 type factoryResponse struct {
@@ -25,10 +25,10 @@ type factoryResponse struct {
 // GetFactoriesByVendor godoc
 // @Summary list of factories
 // @Description Get all factories with current vendorID
-// @Param       vendor-id  query   string  false "id of a vendor"
+// @Param       vendor-id  query   string  true "id of a vendor"
 // @Success     200 {array}  entity.Factory
 // @Failure     400 {object} errResponse
-// @Router      /v1/get_factories [get]
+// @Router      /v1/get_factories_by_vendor [get]
 func (f *factoryRoutes) getFactoriesByVendor(c *gin.Context) {
 	vendorIDParam := c.Query("vendor-id")
 	vendorID, err := strconv.ParseInt(vendorIDParam, 10, 64)
