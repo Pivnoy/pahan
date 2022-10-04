@@ -220,6 +220,8 @@ paths:
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: accept subsidy
+      tags:
+      - Posts
   /v1/create_order:
     post:
       description: Create and link new order with
@@ -238,6 +240,8 @@ paths:
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: create new order
+      tags:
+      - Posts
   /v1/create_shipment:
     post:
       description: Create and link new shipment
@@ -260,6 +264,8 @@ paths:
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: create new shipment
+      tags:
+      - Posts
   /v1/create_subsidy:
     post:
       description: Create and link subsidy with dependent values
@@ -278,6 +284,8 @@ paths:
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: create subsidy
+      tags:
+      - Posts
   /v1/get_components_by_vendor_and_type:
     get:
       description: Get all components depend on vendorID and typeID
@@ -302,8 +310,10 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: get component
+      tags:
+      - Gets
   /v1/get_engineers_by_vendor:
     get:
       description: Get all engineers with current vendorID
@@ -323,8 +333,10 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: list of engineers
+      tags:
+      - Gets
   /v1/get_factories_by_vendor:
     get:
       description: Get all factories with current vendorID
@@ -344,8 +356,10 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: list of factories
+      tags:
+      - Gets
   /v1/get_models:
     get:
       description: Get all models
@@ -359,8 +373,10 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: list of models
+      tags:
+      - Gets
   /v1/get_subsidies:
     get:
       description: Get all subsidies
@@ -376,6 +392,8 @@ paths:
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: list of subsidies
+      tags:
+      - Gets
   /v1/get_types:
     get:
       description: Get all types
@@ -389,6 +407,8 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: list of types
+      tags:
+      - Gets
 swagger: "2.0"

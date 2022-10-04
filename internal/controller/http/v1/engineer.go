@@ -25,6 +25,7 @@ type engineerResponse struct {
 
 // GetEngineersByVendorID godoc
 // @Summary list of engineers
+// @Tags Gets
 // @Description Get all engineers with current vendorID
 // @Param       vendor-id  query   string  true "id of a vendor"
 // @Success     200 {array}  entity.Engineer

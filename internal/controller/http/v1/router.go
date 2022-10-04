@@ -11,7 +11,6 @@ func NewRouter(handler *gin.Engine,
 	ds usecase.Model,
 	or usecase.Order,
 	sh usecase.Shipment,
-	vd usecase.Vendor,
 	sb usecase.Subsidy,
 	en usecase.Engineer,
 	fc usecase.Factory,
@@ -26,7 +25,6 @@ func NewRouter(handler *gin.Engine,
 		newModelRoutes(h, ds)
 		newOrdersRoutes(h, or)
 		newShipmentRoutes(h, sh)
-		newVendorRoutes(h, vd)
 		newSubsidyRoutes(h, sb)
 		newEngineerRoutes(h, en)
 		newFactoryRoutes(h, fc)

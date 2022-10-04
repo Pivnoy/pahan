@@ -32,6 +32,7 @@ func (d *createOrderRequest) validate() bool {
 
 // CreateOrder godoc
 // @Summary create new order
+// @Tags Posts
 // @Description Create and link new order with
 // @Param 		request body createOrderRequest true "query params"
 // @Success     200 {object} nil

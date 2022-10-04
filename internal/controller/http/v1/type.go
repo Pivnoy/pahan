@@ -23,6 +23,7 @@ type typeResponse struct {
 
 // GetTypes godoc
 // @Summary list of types
+// @Tags Gets
 // @Description Get all types
 // @Success     200 {array}  entity.Type
 // @Failure     400 {object} errResponse

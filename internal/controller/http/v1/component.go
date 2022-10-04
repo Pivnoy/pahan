@@ -24,6 +24,7 @@ type componentResponse struct {
 
 // GetComponentByVendorIDAndTypeID godoc
 // @Summary get component
+// @Tags Gets
 // @Description Get all components depend on vendorID and typeID
 // @Param       vendor-id  query   string  true "id of a vendor"
 // @Param       type-id    query   string  true "id of a type"
