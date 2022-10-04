@@ -45,19 +45,19 @@ type (
 	}
 
 	Order interface {
-		NewOrder(context.Context, entity.Order) error
+		CreateOrder(context.Context, entity.Order) error
 	}
 
 	OrderRp interface {
-		DoNewOrder(context.Context, entity.Order) error
+		CreateNewOrder(context.Context, entity.Order) error
 	}
 
 	Shipment interface {
-		NewShipment(context.Context, entity.Shipment) error
+		CreateShipment(context.Context, entity.Shipment) error
 	}
 
 	ShipmentRp interface {
-		DoNewShipment(context.Context, entity.Shipment) error
+		CreateNewShipment(context.Context, entity.Shipment) error
 	}
 
 	FactoryRp interface {

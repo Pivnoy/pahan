@@ -15,25 +15,30 @@ type shipmentRoutes struct {
 func newShipmentRoutes(handler *gin.RouterGroup, t usecase.Shipment) {
 	r := &shipmentRoutes{t: t}
 
-	handler.POST("/accept_order", r.doNewShipment)
+	handler.POST("/create_shipment", r.doNewShipment)
 }
 
-type doShipmentRequest struct {
+type createShipmentRequest struct {
 	OrderID   int64  `json:"order_id"`
 	CountryID int64  `json:"country_id"`
 	Date      string `json:"date"`
 }
 
 func (s *shipmentRoutes) doNewShipment(c *gin.Context) {
-	var request doShipmentRequest
+	var request createShipmentRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	t, _ := time.Parse(time.RFC3339, request.Date)
+	t, err := time.Parse(time.RFC3339, request.Date)
 
-	err := s.t.NewShipment(c.Request.Context(),
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, "error in parsing time")
+		return
+	}
+
+	err = s.t.CreateShipment(c.Request.Context(),
 		entity.Shipment{
 			OrderID:     request.OrderID,
 			CountryToID: request.CountryID,

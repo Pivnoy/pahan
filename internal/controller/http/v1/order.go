@@ -14,22 +14,41 @@ type ordersRoutes struct {
 func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 	r := &ordersRoutes{t: t}
 
-	handler.POST("/new_order", r.doNewOrder)
+	handler.POST("/create_order", r.createNewOrder)
 }
 
-type doOrderRequest struct {
+type createOrderRequest struct {
 	ModelID   int64  `json:"model_id"`
 	Quantity  int64  `json:"quantity"`
 	OrderType string `json:"order_type"`
 }
 
-func (o *ordersRoutes) doNewOrder(c *gin.Context) {
-	var request doOrderRequest
+func (d *createOrderRequest) validate() bool {
+	return d.ModelID > 0 &&
+		d.Quantity > 0 &&
+		len(d.OrderType) > 0 &&
+		len(d.OrderType) <= 50
+}
+
+// CreateOrder godoc
+// @Summary create new order
+// @Description Create and link new order with
+// @Param 		request body createOrderRequest true "query params"
+// @Success     200 {object} nil
+// @Failure     400 {object} errResponse
+// @Router      /v1/create_order [post]
+func (o *ordersRoutes) createNewOrder(c *gin.Context) {
+	var request createOrderRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
-	err := o.t.NewOrder(c.Request.Context(),
+	isValid := request.validate()
+	if !isValid {
+		errorResponse(c, http.StatusBadRequest, "request is not valid")
+		return
+	}
+	err := o.t.CreateOrder(c.Request.Context(),
 		entity.Order{
 			ModelID:   request.ModelID,
 			Quantity:  request.Quantity,
