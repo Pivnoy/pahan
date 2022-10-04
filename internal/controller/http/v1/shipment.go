@@ -24,6 +24,14 @@ type createShipmentRequest struct {
 	Date      string `json:"date"`
 }
 
+// CreateShipment godoc
+// @Summary create new shipment
+// @Description Create and link new shipment
+// @Param 		request body createShipmentRequest true "query params"
+// @Success     200 {object} nil
+// @Failure     400 {object} errResponse
+// @Failure     500 {object} errResponse
+// @Router      /v1/create_shipment [post]
 func (s *shipmentRoutes) doNewShipment(c *gin.Context) {
 	var request createShipmentRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
