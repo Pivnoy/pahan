@@ -24,6 +24,7 @@ type factoryResponse struct {
 
 // GetFactoriesByVendor godoc
 // @Summary list of factories
+// @Tags Gets
 // @Description Get all factories with current vendorID
 // @Param       vendor-id  query   string  true "id of a vendor"
 // @Success     200 {array}  entity.Factory

@@ -26,6 +26,7 @@ type createShipmentRequest struct {
 
 // CreateShipment godoc
 // @Summary create new shipment
+// @Tags Posts
 // @Description Create and link new shipment
 // @Param 		request body createShipmentRequest true "query params"
 // @Success     200 {object} nil

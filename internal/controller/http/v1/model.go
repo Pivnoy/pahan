@@ -15,7 +15,6 @@ func newModelRoutes(handler *gin.RouterGroup, t usecase.Model) {
 	r := &designRoutes{t: t}
 
 	handler.GET("/get_models", r.getAllModels)
-	handler.POST("/new_design", r.doNewDesign)
 }
 
 type modelResponse struct {
@@ -24,6 +23,7 @@ type modelResponse struct {
 
 // GetAllModels godoc
 // @Summary list of models
+// @Tags Gets
 // @Description Get all models
 // @Success     200 {array}  entity.Model
 // @Failure     400 {object} errResponse
@@ -48,29 +48,4 @@ type doDesignRequest struct {
 	SuspensionID int64  `json:"suspension_id"`
 	VendorID     int64  `json:"vendor_id"`
 	Name         string `json:"name"`
-}
-
-// FIXME
-// проектирование новой модели машины
-func (r *designRoutes) doNewDesign(c *gin.Context) {
-	var request doDesignRequest
-	if err := c.ShouldBindJSON(&request); err != nil {
-		errorResponse(c, http.StatusBadRequest, err.Error())
-		return
-	}
-
-	err := r.t.NewModel(c.Request.Context(),
-		entity.Model{
-			WheelDrive:   request.WheelDrive,
-			Significance: request.Significance,
-			ProdCost:     request.ProdCost,
-			VendorID:     request.VendorID,
-			Name:         request.Name,
-		})
-
-	if err != nil {
-		errorResponse(c, http.StatusInternalServerError, err.Error())
-		return
-	}
-	c.JSON(http.StatusOK, nil)
 }

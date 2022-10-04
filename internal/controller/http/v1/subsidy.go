@@ -26,6 +26,7 @@ type subsidyResponse struct {
 
 // GetSubsidies godoc
 // @Summary list of subsidies
+// @Tags Gets
 // @Description Get all subsidies
 // @Success     200 {array}  entity.Subsidy
 // @Failure     500 {object} errResponse
@@ -53,6 +54,7 @@ func (c *createSubsidyRequest) validate() bool {
 
 // CreateSubsidy godoc
 // @Summary create subsidy
+// @Tags Posts
 // @Description Create and link subsidy with dependent values
 // @Param 		request body createSubsidyRequest true "query params"
 // @Success     200 {object} nil
@@ -92,6 +94,7 @@ type createAcceptSubsidyRequest struct {
 
 // AcceptSubsidy godoc
 // @Summary accept subsidy
+// @Tags Posts
 // @Description Accept and link subsidy
 // @Param 		request body createAcceptSubsidyRequest true "query params"
 // @Success     200 {object} nil

@@ -25,7 +25,6 @@ func Run(cfg *config.Config) {
 	modelUseCase := usecase.NewModelUseCase(repo.NewModelRepo(pg))
 	ordersUseCase := usecase.NewOrdersUseCase(repo.NewOrdersRepo(pg))
 	shipmentUseCase := usecase.NewShipmentUseCase(repo.NewShipmentRepo(pg))
-	vendorUseCase := usecase.NewVendorUseCase(repo.NewVendorRepo(pg))
 	subsidyUseCase := usecase.NewSubsidyUseCase(repo.NewSubsidyRepo(pg))
 	engineerUseCase := usecase.NewEngineerUseCase(repo.NewEngineerRepo(pg))
 	factoryUseCase := usecase.NewFactoryUseCase(repo.NewFactoryRepo(pg))
@@ -37,7 +36,6 @@ func Run(cfg *config.Config) {
 		modelUseCase,
 		ordersUseCase,
 		shipmentUseCase,
-		vendorUseCase,
 		subsidyUseCase,
 		engineerUseCase,
 		factoryUseCase,

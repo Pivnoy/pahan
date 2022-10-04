@@ -19,6 +19,9 @@ const docTemplate = `{
         "/v1/accept_subsidy": {
             "post": {
                 "description": "Accept and link subsidy",
+                "tags": [
+                    "Posts"
+                ],
                 "summary": "accept subsidy",
                 "parameters": [
                     {
@@ -47,6 +50,9 @@ const docTemplate = `{
         "/v1/create_order": {
             "post": {
                 "description": "Create and link new order with",
+                "tags": [
+                    "Posts"
+                ],
                 "summary": "create new order",
                 "parameters": [
                     {
@@ -75,6 +81,9 @@ const docTemplate = `{
         "/v1/create_shipment": {
             "post": {
                 "description": "Create and link new shipment",
+                "tags": [
+                    "Posts"
+                ],
                 "summary": "create new shipment",
                 "parameters": [
                     {
@@ -109,6 +118,9 @@ const docTemplate = `{
         "/v1/create_subsidy": {
             "post": {
                 "description": "Create and link subsidy with dependent values",
+                "tags": [
+                    "Posts"
+                ],
                 "summary": "create subsidy",
                 "parameters": [
                     {
@@ -137,6 +149,9 @@ const docTemplate = `{
         "/v1/get_components_by_vendor_and_type": {
             "get": {
                 "description": "Get all components depend on vendorID and typeID",
+                "tags": [
+                    "Gets"
+                ],
                 "summary": "get component",
                 "parameters": [
                     {
@@ -167,7 +182,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -176,6 +191,9 @@ const docTemplate = `{
         "/v1/get_engineers_by_vendor": {
             "get": {
                 "description": "Get all engineers with current vendorID",
+                "tags": [
+                    "Gets"
+                ],
                 "summary": "list of engineers",
                 "parameters": [
                     {
@@ -199,7 +217,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -208,6 +226,9 @@ const docTemplate = `{
         "/v1/get_factories_by_vendor": {
             "get": {
                 "description": "Get all factories with current vendorID",
+                "tags": [
+                    "Gets"
+                ],
                 "summary": "list of factories",
                 "parameters": [
                     {
@@ -231,7 +252,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -240,6 +261,9 @@ const docTemplate = `{
         "/v1/get_models": {
             "get": {
                 "description": "Get all models",
+                "tags": [
+                    "Gets"
+                ],
                 "summary": "list of models",
                 "responses": {
                     "200": {
@@ -254,7 +278,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -263,6 +287,9 @@ const docTemplate = `{
         "/v1/get_subsidies": {
             "get": {
                 "description": "Get all subsidies",
+                "tags": [
+                    "Gets"
+                ],
                 "summary": "list of subsidies",
                 "responses": {
                     "200": {
@@ -286,6 +313,9 @@ const docTemplate = `{
         "/v1/get_types": {
             "get": {
                 "description": "Get all types",
+                "tags": [
+                    "Gets"
+                ],
                 "summary": "list of types",
                 "responses": {
                     "200": {
@@ -300,7 +330,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
