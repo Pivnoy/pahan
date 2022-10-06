@@ -178,6 +178,27 @@ end;
 $$ language 'plpgsql';
 
 
+/* функция 11 - создаине новой модели */
+create or replace function create_model(
+    vendor_id_new integer,
+    name_new varchar(20),
+    wheeldrive_new varchar(3),
+    significance_new integer,
+    price_new bigint,
+    engineer_id_new bigint,
+    factory_id_new bigint
+)
+returns void as $$
+begin
+    insert into model (vendor_id, name, wheeldrive, significance, price, prod_cost, engineer_id, factory_id, sales)
+    values (vendor_id_new, name_new, wheeldrive_new, significance_new, price_new, price_new, engineer_id_new, factory_id_new, 0);
+end;
+$$ language 'plpgsql';
+
+
+/* пример запроса с входными данными к функции 11 */
+select create_model(1, 'Санечка, снимаешь?', 1, 1, 1, 1, 1);
+
 /* пример запроса с входнымми данными к 10 функции */
 select accept_subsidies(
     1,
