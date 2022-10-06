@@ -15,6 +15,7 @@ type shipmentRoutes struct {
 func newShipmentRoutes(handler *gin.RouterGroup, t usecase.Shipment) {
 	r := &shipmentRoutes{t: t}
 
+	handler.GET("/get_shipments", r.getShipments)
 	handler.POST("/create_shipment", r.doNewShipment)
 }
 
@@ -58,4 +59,24 @@ func (s *shipmentRoutes) doNewShipment(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, nil)
+}
+
+type shipmentsResponse struct {
+	Shipments []entity.Shipment `json:"shipments"`
+}
+
+// GetShipments godoc
+// @Summary get shipments
+// @Tags Gets
+// @Description Get all shipments
+// @Success     200 {array} entity.Shipment
+// @Failure     500 {object} errResponse
+// @Router      /v1/get_shipments [get]
+func (s *shipmentRoutes) getShipments(c *gin.Context) {
+	shipments, err := s.t.GetShipments(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, shipmentsResponse{shipments})
 }

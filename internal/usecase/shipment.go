@@ -18,3 +18,7 @@ var _ Shipment = (*ShipmentUseCase)(nil)
 func (s *ShipmentUseCase) CreateShipment(ctx context.Context, shipment entity.Shipment) error {
 	return s.repo.CreateNewShipment(ctx, shipment)
 }
+
+func (s *ShipmentUseCase) GetShipments(ctx context.Context) ([]entity.Shipment, error) {
+	return s.repo.GetAllShipments(ctx)
+}

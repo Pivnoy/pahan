@@ -30,7 +30,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.createAcceptSubsidyRequest"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createAcceptSubsidyRequest"
                         }
                     }
                 ],
@@ -41,7 +41,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -61,7 +61,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.createOrderRequest"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createOrderRequest"
                         }
                     }
                 ],
@@ -72,7 +72,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -129,7 +129,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.createSubsidyRequest"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createSubsidyRequest"
                         }
                     }
                 ],
@@ -140,7 +140,33 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/get_components": {
+            "get": {
+                "description": "Get all components",
+                "tags": [
+                    "Gets"
+                ],
+                "summary": "get components",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Component"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -252,7 +278,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -304,6 +330,32 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/get_shipments": {
+            "get": {
+                "description": "Get all shipments",
+                "tags": [
+                    "Gets"
+                ],
+                "summary": "get shipments",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Shipment"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
                             "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
@@ -330,7 +382,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -356,7 +408,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -475,6 +527,26 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "entity.Shipment": {
+            "type": "object",
+            "properties": {
+                "cost": {
+                    "type": "integer"
+                },
+                "country_to_id": {
+                    "type": "integer"
+                },
+                "date": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "order_id": {
                     "type": "integer"
                 }
             }
