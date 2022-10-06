@@ -18,3 +18,7 @@ var _ Component = (*ComponentUseCase)(nil)
 func (c *ComponentUseCase) GetComponentsByVendorAndType(ctx context.Context, vendorID int64, typeID int64) ([]entity.Component, error) {
 	return c.repo.GetComponentsByVendorIDAndTypeID(ctx, vendorID, typeID)
 }
+
+func (c *ComponentUseCase) GetComponents(ctx context.Context) ([]entity.Component, error) {
+	return c.repo.GetAllComponents(ctx)
+}

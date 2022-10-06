@@ -15,6 +15,7 @@ type componentRoutes struct {
 func newComponentRoutes(handler *gin.RouterGroup, t usecase.Component) {
 	r := &componentRoutes{t: t}
 
+	handler.GET("/get_components", r.getComponents)
 	handler.GET("/get_components_by_vendor_and_type", r.getComponentsByVendorAndType)
 }
 
@@ -46,4 +47,24 @@ func (f *componentRoutes) getComponentsByVendorAndType(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, componentResponse{components})
+}
+
+type componentsResponse struct {
+	Components []entity.Component `json:"components"`
+}
+
+// GetComponents godoc
+// @Summary get components
+// @Tags Gets
+// @Description Get all components
+// @Success     200 {array}  entity.Component
+// @Failure     500 {object} errResponse
+// @Router      /v1/get_components [get]
+func (f *componentRoutes) getComponents(c *gin.Context) {
+	components, err := f.t.GetComponents(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, componentsResponse{components})
 }

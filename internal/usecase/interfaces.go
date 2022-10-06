@@ -56,10 +56,12 @@ type (
 
 	Shipment interface {
 		CreateShipment(context.Context, entity.Shipment) error
+		GetShipments(context.Context) ([]entity.Shipment, error)
 	}
 
 	ShipmentRp interface {
 		CreateNewShipment(context.Context, entity.Shipment) error
+		GetAllShipments(context.Context) ([]entity.Shipment, error)
 	}
 
 	FactoryRp interface {
@@ -72,10 +74,12 @@ type (
 
 	ComponentRp interface {
 		GetComponentsByVendorIDAndTypeID(context.Context, int64, int64) ([]entity.Component, error)
+		GetAllComponents(context.Context) ([]entity.Component, error)
 	}
 
 	Component interface {
 		GetComponentsByVendorAndType(context.Context, int64, int64) ([]entity.Component, error)
+		GetComponents(context.Context) ([]entity.Component, error)
 	}
 
 	TypeRp interface {

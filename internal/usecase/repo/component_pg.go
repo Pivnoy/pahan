@@ -43,3 +43,29 @@ func (c *ComponentRepo) GetComponentsByVendorIDAndTypeID(ctx context.Context, ve
 	}
 	return components, nil
 }
+
+func (c *ComponentRepo) GetAllComponents(ctx context.Context) ([]entity.Component, error) {
+	query := `SELECT * FROM component`
+
+	rows, err := c.Pool.Query(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+
+	var components []entity.Component
+
+	for rows.Next() {
+		var cmp entity.Component
+		err = rows.Scan(&cmp.ID,
+			&cmp.VendorID,
+			&cmp.TypeID,
+			&cmp.Name,
+			&cmp.AdditionalInfo)
+		if err != nil {
+			return nil, fmt.Errorf("error in parsing component: %w", err)
+		}
+		components = append(components, cmp)
+	}
+	return components, nil
+}
