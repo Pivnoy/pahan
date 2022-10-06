@@ -30,7 +30,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createAcceptSubsidyRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createAcceptSubsidyRequest"
                         }
                     }
                 ],
@@ -41,7 +41,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -61,7 +61,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createOrderRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createOrderRequest"
                         }
                     }
                 ],
@@ -72,7 +72,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -92,7 +92,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createShipmentRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createShipmentRequest"
                         }
                     }
                 ],
@@ -103,13 +103,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -129,7 +129,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createSubsidyRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createSubsidyRequest"
                         }
                     }
                 ],
@@ -140,7 +140,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -217,7 +217,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -252,7 +252,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -284,6 +284,32 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/get_orders": {
+            "get": {
+                "description": "Get All orders info",
+                "tags": [
+                    "Gets"
+                ],
+                "summary": "get orders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/entity.Order"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/get_subsidies": {
             "get": {
                 "description": "Get all subsidies",
@@ -304,7 +330,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -433,6 +459,23 @@ const docTemplate = `{
                 },
                 "wheeldrive": {
                     "type": "string"
+                }
+            }
+        },
+        "entity.Order": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "model_id": {
+                    "type": "integer"
+                },
+                "order_type": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
                 }
             }
         },

@@ -46,10 +46,12 @@ type (
 
 	Order interface {
 		CreateOrder(context.Context, entity.Order) error
+		GetOrders(context.Context) ([]entity.Order, error)
 	}
 
 	OrderRp interface {
 		CreateNewOrder(context.Context, entity.Order) error
+		GetAllOrders(context.Context) ([]entity.Order, error)
 	}
 
 	Shipment interface {
