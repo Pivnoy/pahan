@@ -22,3 +22,7 @@ func (c *ComponentUseCase) GetComponentsByVendorAndType(ctx context.Context, ven
 func (c *ComponentUseCase) GetComponents(ctx context.Context) ([]entity.Component, error) {
 	return c.repo.GetAllComponents(ctx)
 }
+
+func (c *ComponentUseCase) CreateComponent(ctx context.Context, vendorID int64, typeID int64, name string, additionalInfo string) error {
+	return c.repo.CreateCustomComponent(ctx, vendorID, typeID, name, additionalInfo)
+}

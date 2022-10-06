@@ -108,6 +108,17 @@ definitions:
       type:
         type: string
     type: object
+  internal_controller_http_v1.componentCreateRequest:
+    properties:
+      additional_info:
+        type: string
+      name:
+        type: string
+      type_id:
+        type: integer
+      vendor_id:
+        type: integer
+    type: object
   internal_controller_http_v1.createAcceptSubsidyRequest:
     properties:
       component-bumper-id:
@@ -162,6 +173,17 @@ definitions:
     properties:
       error:
         type: string
+    type: object
+  pahan_internal_controller_http_v1.componentCreateRequest:
+    properties:
+      additional_info:
+        type: string
+      name:
+        type: string
+      type_id:
+        type: integer
+      vendor_id:
+        type: integer
     type: object
   pahan_internal_controller_http_v1.createAcceptSubsidyRequest:
     properties:
@@ -244,6 +266,26 @@ paths:
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: accept subsidy
+      tags:
+      - Posts
+  /v1/create_component:
+    post:
+      description: Create component based on params
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/pahan_internal_controller_http_v1.componentCreateRequest'
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+      summary: create component
       tags:
       - Posts
   /v1/create_order:
@@ -414,7 +456,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: list of models
       tags:
       - Gets
@@ -482,7 +524,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: list of types
       tags:
       - Gets

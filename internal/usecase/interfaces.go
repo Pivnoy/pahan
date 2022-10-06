@@ -75,11 +75,13 @@ type (
 	ComponentRp interface {
 		GetComponentsByVendorIDAndTypeID(context.Context, int64, int64) ([]entity.Component, error)
 		GetAllComponents(context.Context) ([]entity.Component, error)
+		CreateCustomComponent(context.Context, int64, int64, string, string) error
 	}
 
 	Component interface {
 		GetComponentsByVendorAndType(context.Context, int64, int64) ([]entity.Component, error)
 		GetComponents(context.Context) ([]entity.Component, error)
+		CreateComponent(context.Context, int64, int64, string, string) error
 	}
 
 	TypeRp interface {

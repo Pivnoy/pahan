@@ -69,3 +69,14 @@ func (c *ComponentRepo) GetAllComponents(ctx context.Context) ([]entity.Componen
 	}
 	return components, nil
 }
+
+func (c *ComponentRepo) CreateCustomComponent(ctx context.Context, vendorID int64, typeID int64, name string, additionalInfo string) error {
+	query := `INSERT INTO component (vendor_id, type_id, name, additional_info) VALUES ($1, $2, $3, $4)`
+
+	rows, err := c.Pool.Query(ctx, query, vendorID, typeID, name, additionalInfo)
+	if err != nil {
+		return fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+	return nil
+}

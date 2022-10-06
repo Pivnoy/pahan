@@ -17,6 +17,7 @@ func newComponentRoutes(handler *gin.RouterGroup, t usecase.Component) {
 
 	handler.GET("/get_components", r.getComponents)
 	handler.GET("/get_components_by_vendor_and_type", r.getComponentsByVendorAndType)
+	handler.POST("/create_component", r.createComponent)
 }
 
 type componentResponse struct {
@@ -67,4 +68,45 @@ func (f *componentRoutes) getComponents(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, componentsResponse{components})
+}
+
+type componentCreateRequest struct {
+	VendorID       int64  `json:"vendor_id"`
+	TypeID         int64  `json:"type_id"`
+	Name           string `json:"name"`
+	AdditionalInfo string `json:"additional_info"`
+}
+
+func (c *componentCreateRequest) validate() bool {
+	return c.VendorID > 0 &&
+		c.TypeID > 0 &&
+		len(c.Name) > 0 &&
+		len(c.AdditionalInfo) > 0
+}
+
+// CreateComponent godoc
+// @Summary create component
+// @Tags Posts
+// @Description Create component based on params
+// @Param 		request body componentCreateRequest true "query params"
+// @Success     200 {object}  nil
+// @Failure     500 {object} errResponse
+// @Router      /v1/create_component [post]
+func (f *componentRoutes) createComponent(c *gin.Context) {
+	var ccr componentCreateRequest
+	if err := c.ShouldBindJSON(&ccr); err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	vl := ccr.validate()
+	if !vl {
+		errorResponse(c, http.StatusInternalServerError, "error in validate component")
+		return
+	}
+	err := f.t.CreateComponent(c.Request.Context(), ccr.VendorID, ccr.TypeID, ccr.Name, ccr.AdditionalInfo)
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, nil)
 }

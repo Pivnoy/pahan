@@ -47,6 +47,37 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/create_component": {
+            "post": {
+                "description": "Create component based on params",
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "create component",
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.componentCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/create_order": {
             "post": {
                 "description": "Create and link new order with",
@@ -304,7 +335,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -408,7 +439,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -582,6 +613,23 @@ const docTemplate = `{
                 }
             }
         },
+        "internal_controller_http_v1.componentCreateRequest": {
+            "type": "object",
+            "properties": {
+                "additional_info": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type_id": {
+                    "type": "integer"
+                },
+                "vendor_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "internal_controller_http_v1.createAcceptSubsidyRequest": {
             "type": "object",
             "properties": {
@@ -664,6 +712,23 @@ const docTemplate = `{
             "properties": {
                 "error": {
                     "type": "string"
+                }
+            }
+        },
+        "pahan_internal_controller_http_v1.componentCreateRequest": {
+            "type": "object",
+            "properties": {
+                "additional_info": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type_id": {
+                    "type": "integer"
+                },
+                "vendor_id": {
+                    "type": "integer"
                 }
             }
         },
