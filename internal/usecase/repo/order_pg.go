@@ -28,3 +28,28 @@ func (o *OrderRepo) CreateNewOrder(ctx context.Context, ord entity.Order) error 
 	defer rows.Close()
 	return nil
 }
+
+func (o *OrderRepo) GetAllOrders(ctx context.Context) ([]entity.Order, error) {
+	query := `SELECT * FROM "order"`
+
+	rows, err := o.Pool.Query(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+
+	var orders []entity.Order
+
+	for rows.Next() {
+		var ord entity.Order
+		err = rows.Scan(&ord.ID,
+			&ord.ModelID,
+			&ord.Quantity,
+			&ord.OrderType)
+		if err != nil {
+			return nil, fmt.Errorf("error in parsing order: %w", err)
+		}
+		orders = append(orders, ord)
+	}
+	return orders, nil
+}

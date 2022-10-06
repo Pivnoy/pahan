@@ -15,6 +15,7 @@ func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 	r := &ordersRoutes{t: t}
 
 	handler.POST("/create_order", r.createNewOrder)
+	handler.GET("/get_orders", r.getOrders)
 }
 
 type createOrderRequest struct {
@@ -60,4 +61,24 @@ func (o *ordersRoutes) createNewOrder(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, nil)
+}
+
+type orderResponse struct {
+	Orders []entity.Order `json:"orders"`
+}
+
+// GetOrders godoc
+// @Summary get orders
+// @Tags Gets
+// @Description Get All orders info
+// @Success     200 {array} entity.Order
+// @Failure     500 {object} errResponse
+// @Router      /v1/get_orders [get]
+func (o *ordersRoutes) getOrders(c *gin.Context) {
+	orders, err := o.t.GetOrders(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, orderResponse{orders})
 }
