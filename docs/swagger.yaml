@@ -169,6 +169,23 @@ definitions:
       required-wd-by:
         type: string
     type: object
+  internal_controller_http_v1.doDesignRequest:
+    properties:
+      engineer_id:
+        type: integer
+      factory_id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      significance:
+        type: integer
+      vendor_id:
+        type: integer
+      wheeldrive:
+        type: string
+    type: object
   internal_controller_http_v1.errResponse:
     properties:
       error:
@@ -235,6 +252,23 @@ definitions:
       required-wd-by:
         type: string
     type: object
+  pahan_internal_controller_http_v1.doDesignRequest:
+    properties:
+      engineer_id:
+        type: integer
+      factory_id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      significance:
+        type: integer
+      vendor_id:
+        type: integer
+      wheeldrive:
+        type: string
+    type: object
   pahan_internal_controller_http_v1.errResponse:
     properties:
       error:
@@ -257,14 +291,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/pahan_internal_controller_http_v1.createAcceptSubsidyRequest'
+          $ref: '#/definitions/internal_controller_http_v1.createAcceptSubsidyRequest'
       responses:
         "200":
           description: OK
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: accept subsidy
       tags:
       - Posts
@@ -277,7 +311,27 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/pahan_internal_controller_http_v1.componentCreateRequest'
+          $ref: '#/definitions/internal_controller_http_v1.componentCreateRequest'
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+      summary: create component
+      tags:
+      - Posts
+  /v1/create_model:
+    post:
+      description: Create model based on params
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/pahan_internal_controller_http_v1.doDesignRequest'
       responses:
         "200":
           description: OK
@@ -285,7 +339,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
-      summary: create component
+      summary: create model
       tags:
       - Posts
   /v1/create_order:
@@ -297,14 +351,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/pahan_internal_controller_http_v1.createOrderRequest'
+          $ref: '#/definitions/internal_controller_http_v1.createOrderRequest'
       responses:
         "200":
           description: OK
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: create new order
       tags:
       - Posts
@@ -317,18 +371,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/internal_controller_http_v1.createShipmentRequest'
+          $ref: '#/definitions/pahan_internal_controller_http_v1.createShipmentRequest'
       responses:
         "200":
           description: OK
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: create new shipment
       tags:
       - Posts
@@ -341,14 +395,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/pahan_internal_controller_http_v1.createSubsidyRequest'
+          $ref: '#/definitions/internal_controller_http_v1.createSubsidyRequest'
       responses:
         "200":
           description: OK
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: create subsidy
       tags:
       - Posts
@@ -365,7 +419,7 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: get components
       tags:
       - Gets
@@ -393,7 +447,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: get component
       tags:
       - Gets
@@ -416,7 +470,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: list of engineers
       tags:
       - Gets
@@ -439,7 +493,7 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: list of factories
       tags:
       - Gets
@@ -473,7 +527,7 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: get orders
       tags:
       - Gets
@@ -490,7 +544,7 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
       summary: get shipments
       tags:
       - Gets
@@ -507,7 +561,7 @@ paths:
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/pahan_internal_controller_http_v1.errResponse'
+            $ref: '#/definitions/internal_controller_http_v1.errResponse'
       summary: list of subsidies
       tags:
       - Gets

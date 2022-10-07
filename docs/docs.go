@@ -30,7 +30,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createAcceptSubsidyRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createAcceptSubsidyRequest"
                         }
                     }
                 ],
@@ -41,7 +41,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -61,7 +61,38 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.componentCreateRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.componentCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/create_model": {
+            "post": {
+                "description": "Create model based on params",
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "create model",
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.doDesignRequest"
                         }
                     }
                 ],
@@ -92,7 +123,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createOrderRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createOrderRequest"
                         }
                     }
                 ],
@@ -103,7 +134,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -123,7 +154,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.createShipmentRequest"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createShipmentRequest"
                         }
                     }
                 ],
@@ -134,13 +165,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -160,7 +191,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.createSubsidyRequest"
+                            "$ref": "#/definitions/internal_controller_http_v1.createSubsidyRequest"
                         }
                     }
                 ],
@@ -171,7 +202,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -197,7 +228,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -239,7 +270,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -274,7 +305,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -309,7 +340,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -361,7 +392,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -387,7 +418,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -413,7 +444,7 @@ const docTemplate = `{
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/pahan_internal_controller_http_v1.errResponse"
+                            "$ref": "#/definitions/internal_controller_http_v1.errResponse"
                         }
                     }
                 }
@@ -707,6 +738,32 @@ const docTemplate = `{
                 }
             }
         },
+        "internal_controller_http_v1.doDesignRequest": {
+            "type": "object",
+            "properties": {
+                "engineer_id": {
+                    "type": "integer"
+                },
+                "factory_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "significance": {
+                    "type": "integer"
+                },
+                "vendor_id": {
+                    "type": "integer"
+                },
+                "wheeldrive": {
+                    "type": "string"
+                }
+            }
+        },
         "internal_controller_http_v1.errResponse": {
             "type": "object",
             "properties": {
@@ -805,6 +862,32 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "required-wd-by": {
+                    "type": "string"
+                }
+            }
+        },
+        "pahan_internal_controller_http_v1.doDesignRequest": {
+            "type": "object",
+            "properties": {
+                "engineer_id": {
+                    "type": "integer"
+                },
+                "factory_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "significance": {
+                    "type": "integer"
+                },
+                "vendor_id": {
+                    "type": "integer"
+                },
+                "wheeldrive": {
                     "type": "string"
                 }
             }
