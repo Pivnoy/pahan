@@ -53,12 +53,10 @@ func (m *ModelRepo) GetModels(ctx context.Context) ([]entity.Model, error) {
 	return models, nil
 }
 
-// FIXME
-// DoNewModel Создание новой модели
 func (m *ModelRepo) DoNewModel(ctx context.Context, car entity.Model) error {
-	query := `SELECT do_new_model($1, $2, $3, $4, $5, $6, $7)`
+	query := `SELECT create_model($1, $2, $3, $4, $5, $6, $7)`
 
-	rows, err := m.Pool.Query(ctx, query, car.WheelDrive, car.Significance, car.ProdCost, car.ProdCost, 1, 2, car.Name)
+	rows, err := m.Pool.Query(ctx, query, car.VendorID, car.Name, car.WheelDrive, car.Significance, car.Price, car.EngineerID, car.FactoryID)
 	if err != nil {
 		return fmt.Errorf("cannot execute query: %w", err)
 	}

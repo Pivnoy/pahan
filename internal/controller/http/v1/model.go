@@ -15,6 +15,7 @@ func newModelRoutes(handler *gin.RouterGroup, t usecase.Model) {
 	r := &designRoutes{t: t}
 
 	handler.GET("/get_models", r.getAllModels)
+	handler.POST("/new_model", r.doCreateModel)
 }
 
 type modelResponse struct {
@@ -41,11 +42,34 @@ func (r *designRoutes) getAllModels(c *gin.Context) {
 // FIXME
 // структура для тела запроса
 type doDesignRequest struct {
-	WheelDrive   string `json:"wheeldrive"`
-	Significance int64  `json:"significance"`
-	ProdCost     int64  `json:"prod_cost"`
-	EngineID     int64  `json:"engine_id"`
-	SuspensionID int64  `json:"suspension_id"`
 	VendorID     int64  `json:"vendor_id"`
+	Significance int64  `json:"significance"`
+	Price        int64  `json:"price"`
 	Name         string `json:"name"`
+	EngineerID   int64  `json:"engineer_id"`
+	FactoryID    int64  `json:"factory_id"`
+	Wheeldrive   string `json:"wheeldrive"`
+}
+
+func (r *designRoutes) doCreateModel(c *gin.Context) {
+	var req doDesignRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	err := r.t.NewModel(c.Request.Context(),
+		entity.Model{
+			VendorID:     req.VendorID,
+			Significance: req.Significance,
+			Price:        req.Price,
+			Name:         req.Name,
+			EngineerID:   req.EngineerID,
+			FactoryID:    req.FactoryID,
+			WheelDrive:   req.Wheeldrive,
+		})
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, nil)
 }
