@@ -15,7 +15,7 @@ func newModelRoutes(handler *gin.RouterGroup, t usecase.Model) {
 	r := &designRoutes{t: t}
 
 	handler.GET("/get_models", r.getAllModels)
-	handler.POST("/new_model", r.doCreateModel)
+	handler.POST("/create_model", r.doCreateModel)
 }
 
 type modelResponse struct {
@@ -51,6 +51,14 @@ type doDesignRequest struct {
 	Wheeldrive   string `json:"wheeldrive"`
 }
 
+// CreateModel godoc
+// @Summary create model
+// @Tags Posts
+// @Description Create model based on params
+// @Param 		request body doDesignRequest true "query params"
+// @Success     200 {object}  nil
+// @Failure     500 {object} errResponse
+// @Router      /v1/create_model [post]
 func (r *designRoutes) doCreateModel(c *gin.Context) {
 	var req doDesignRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
