@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	"log"
 	"os"
 	"os/signal"
@@ -12,9 +13,6 @@ import (
 	"pahan/pkg/httpserver"
 	"pahan/pkg/postgres"
 	"syscall"
-	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 func Run(cfg *config.Config) {
@@ -34,14 +32,9 @@ func Run(cfg *config.Config) {
 	typeUseCase := usecase.NewTypeUseCase(repo.NewTypeRepo(pg))
 	// http Server
 	handler := gin.New()
-	handler.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"*"},
-		AllowHeaders:     []string{"Origin"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowOrigins = []string{"http://localhost:3000"}
+	handler.Use(cors.New(corsConfig))
 	v1.NewRouter(handler,
 		modelUseCase,
 		ordersUseCase,
