@@ -53,3 +53,29 @@ func (o *OrderRepo) GetAllOrders(ctx context.Context) ([]entity.Order, error) {
 	}
 	return orders, nil
 }
+
+func (o *OrderRepo) GetAllOrdersByVendor(ctx context.Context, vendorID int64) ([]entity.OrdersVendor, error) {
+	query := `select model_name, model_id, order_id, quantity, order_type from get_orders_by_vendor_id(1)`
+
+	rows, err := o.Pool.Query(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+
+	var ordersVendor []entity.OrdersVendor
+
+	for rows.Next() {
+		var orderVendor entity.OrdersVendor
+		err = rows.Scan(&orderVendor.ModelName,
+			&orderVendor.ModelID,
+			&orderVendor.OrderID,
+			&orderVendor.Quantity,
+			&orderVendor.OrderType)
+		if err != nil {
+			return nil, fmt.Errorf("error in parsing order: %w", err)
+		}
+		ordersVendor = append(ordersVendor, orderVendor)
+	}
+	return ordersVendor, nil
+}
