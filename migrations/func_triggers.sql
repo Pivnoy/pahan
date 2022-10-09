@@ -212,3 +212,9 @@ $$ language 'plpgsql';
 
 /* пример запроса с входными данными к функции 11 */
 select create_model(1, 'Санечка, снимаешь?', 1, 1, 1, 1, 1);
+
+
+select vendor.name as vendor, model.name as model, "order".id as order_id, "order".quantity, "order".order_type from "order"
+                                                                                                                         inner join model on "order".model_id = model.id
+                                                                                                                         inner join vendor on model.vendor_id = vendor.id
+where vendor.id = 1;

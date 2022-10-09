@@ -22,3 +22,7 @@ func (o *OrdersUseCase) CreateOrder(ctx context.Context, order entity.Order) err
 func (o *OrdersUseCase) GetOrders(ctx context.Context) ([]entity.Order, error) {
 	return o.repo.GetAllOrders(ctx)
 }
+
+func (o *OrdersUseCase) GetOrdersByVendor(ctx context.Context, vendorID int64) ([]entity.OrdersVendor, error) {
+	return o.repo.GetAllOrdersByVendor(ctx, vendorID)
+}

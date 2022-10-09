@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
+	"strconv"
 )
 
 type ordersRoutes struct {
@@ -16,6 +17,7 @@ func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 
 	handler.POST("/create_order", r.createNewOrder)
 	handler.GET("/get_orders", r.getOrders)
+	handler.GET("/get_orders-by-vendor-id", r.getOrdersByVendorID)
 }
 
 type createOrderRequest struct {
@@ -81,4 +83,23 @@ func (o *ordersRoutes) getOrders(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, orderResponse{orders})
+}
+
+type orderByVendorResponse struct {
+	Res []entity.OrdersVendor `json:"res"`
+}
+
+func (o *ordersRoutes) getOrdersByVendorID(c *gin.Context) {
+	vendorIDParam := c.Query("vendor-id")
+	vendorID, err := strconv.ParseInt(vendorIDParam, 10, 64)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+	}
+	orders, err := o.t.GetOrdersByVendor(c.Request.Context(), vendorID)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, orderByVendorResponse{orders})
 }
