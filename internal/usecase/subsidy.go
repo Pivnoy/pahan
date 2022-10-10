@@ -31,3 +31,7 @@ func (sb *SubsidyUseCase) CreateSubsidy(ctx context.Context, countryIDBy int64, 
 func (sb *SubsidyUseCase) AcceptSubsidyUs(ctx context.Context, subsidyID int64, model entity.Model, componentEngineID, componentDoorID, componentBumperID, componentTransmissionID int64) error {
 	return sb.repo.AcceptSubsidy(ctx, subsidyID, model, componentEngineID, componentDoorID, componentBumperID, componentTransmissionID)
 }
+
+func (sb *SubsidyUseCase) GetSubsidyByCountry(ctx context.Context, vendorID int64) ([]entity.Subsidy, error) {
+	return sb.repo.GetSubsidyByCountry(ctx, vendorID)
+}

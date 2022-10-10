@@ -68,3 +68,32 @@ func (sr *SubsidyRepo) AcceptSubsidy(ctx context.Context, subsidyID int64, model
 	defer rows.Close()
 	return nil
 }
+
+func (sr *SubsidyRepo) GetSubsidyByCountry(ctx context.Context, vendorID int64) ([]entity.Subsidy, error) {
+	query := `SELECT * FROM get_subsidies_by_country_id($1)`
+
+	rows, err := sr.Pool.Query(ctx, query, vendorID)
+	if err != nil {
+		return nil, fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+
+	var subsidies []entity.Subsidy
+
+	for rows.Next() {
+		var subsidy entity.Subsidy
+		err = rows.Scan(
+			&subsidy.ID,
+			&subsidy.CountryID,
+			&subsidy.RequirePrice,
+			&subsidy.RequiredWd,
+		)
+
+		if err != nil {
+			return nil, fmt.Errorf("error in parsing subsidy: %w", err)
+		}
+
+		subsidies = append(subsidies, subsidy)
+	}
+	return subsidies, nil
+}

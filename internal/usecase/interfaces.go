@@ -18,12 +18,14 @@ type (
 		GetAllSubsidies(context.Context) ([]entity.Subsidy, error)
 		CreateSubsidy(context.Context, int64, float64, string) error
 		AcceptSubsidyUs(context.Context, int64, entity.Model, int64, int64, int64, int64) error
+		GetSubsidyByCountry(context.Context, int64) ([]entity.Subsidy, error)
 	}
 
 	SubsidyRp interface {
 		GetSubsidies(context.Context) ([]entity.Subsidy, error)
 		CreateAndLinkSubsidy(context.Context, int64, float64, string) error
 		AcceptSubsidy(context.Context, int64, entity.Model, int64, int64, int64, int64) error
+		GetSubsidyByCountry(context.Context, int64) ([]entity.Subsidy, error)
 	}
 
 	Model interface {

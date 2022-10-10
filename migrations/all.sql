@@ -318,10 +318,15 @@ begin
 end;
 $$ language 'plpgsql';
 
--- select model_name , model_id , order_id , quantity, order_type, shipment_cost, shipment_date from get_orders_by_vendor_id(1);
---
---select vendor_name , model_name , model_id, order_id , quantity, order_type, shipment_cost, shipment_date from get_orders_by_country_id(1);
+/* функция 14 - получение всех субсидий по country id */
+create or replace function get_subsidies_by_country_id(country_id_new integer)
+returns table(id_subsidy integer, country_id bigint, required_price numeric, required_wd varchar(3)) as $$
+begin
+    return query select * from subsidy where subsidy.country_id = country_id_new;
+end;
+$$ language 'plpgsql';
 
+--
 
 insert into country(gdp_usd, name) values
                                        (124425.64, 'Russia'),
