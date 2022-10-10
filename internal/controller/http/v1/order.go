@@ -19,6 +19,25 @@ func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 	handler.GET("/get_orders", r.getOrders)
 	handler.GET("/get_orders_by_vendor", r.getOrdersByVendorID)
 	handler.GET("/get_orders_by_country", r.getOrdersByCountryID)
+	handler.POST("/do_order", r.doOrder)
+}
+
+type doOrderRequest struct {
+	OrderID int64 `json:"order_id"`
+}
+
+func (o *ordersRoutes) doOrder(c *gin.Context) {
+	var req doOrderRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	err := o.t.DoOrder(c.Request.Context(), req.OrderID)
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, nil)
 }
 
 type createOrderRequest struct {

@@ -350,6 +350,16 @@ begin
 end;
 $$ language 'plpgsql';
 
+/* функция 15 - выполнение заказа */
+create or replace function do_order(order_id_new integer)
+returns void as $$
+begin
+    delete from shipment where shipment.order_id = order_id_new;
+    delete from "order" where "order".id = order_id_new;
+
+end;
+$$ language 'plpgsql';
+
 
 insert into country(gdp_usd, name) values
                                        (124425.64, 'Russia'),

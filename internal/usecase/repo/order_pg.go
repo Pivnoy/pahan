@@ -29,6 +29,16 @@ func (o *OrderRepo) CreateNewOrder(ctx context.Context, ord entity.Order, countr
 	return nil
 }
 
+func (o *OrderRepo) DoOrder(ctx context.Context, orderID int64) error {
+	query := `SELECT do_order($1)`
+	rows, err := o.Pool.Query(ctx, query, orderID)
+	if err != nil {
+		return fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+	return nil
+}
+
 func (o *OrderRepo) GetAllOrders(ctx context.Context) ([]entity.Order, error) {
 	query := `SELECT * FROM "order"`
 

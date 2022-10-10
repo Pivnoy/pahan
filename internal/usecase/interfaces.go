@@ -60,6 +60,7 @@ type (
 		GetOrders(context.Context) ([]entity.Order, error)
 		GetOrdersByVendor(context.Context, int64) ([]entity.OrdersVendor, error)
 		GetOrdersByCountry(context.Context, int64) ([]entity.OrdersCountry, error)
+		DoOrder(context.Context, int64) error
 	}
 
 	OrderRp interface {
@@ -67,6 +68,7 @@ type (
 		GetAllOrders(context.Context) ([]entity.Order, error)
 		GetAllOrdersByVendor(context.Context, int64) ([]entity.OrdersVendor, error)
 		GetAllOrdersByCountry(context.Context, int64) ([]entity.OrdersCountry, error)
+		DoOrder(context.Context, int64) error
 	}
 
 	Shipment interface {
