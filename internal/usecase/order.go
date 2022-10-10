@@ -26,3 +26,7 @@ func (o *OrdersUseCase) GetOrders(ctx context.Context) ([]entity.Order, error) {
 func (o *OrdersUseCase) GetOrdersByVendor(ctx context.Context, vendorID int64) ([]entity.OrdersVendor, error) {
 	return o.repo.GetAllOrdersByVendor(ctx, vendorID)
 }
+
+func (o *OrdersUseCase) GetOrdersByCountry(ctx context.Context, countryID int64) ([]entity.OrdersCountry, error) {
+	return o.repo.GetAllOrdersByCountry(ctx, countryID)
+}

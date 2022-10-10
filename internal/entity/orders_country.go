@@ -1,10 +1,9 @@
 package entity
 
-import (
-	"github.com/jackc/pgtype"
-)
+import "github.com/jackc/pgtype"
 
-type OrdersVendor struct {
+type OrdersCountry struct {
+	VendorName   string             `json:"vendor_name"`
 	ModelName    string             `json:"model_name"`
 	ModelID      int64              `json:"model_id"`
 	OrderID      int64              `json:"order_id"`
