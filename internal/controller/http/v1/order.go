@@ -22,9 +22,10 @@ func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 }
 
 type createOrderRequest struct {
-	ModelID   int64  `json:"model_id"`
-	Quantity  int64  `json:"quantity"`
-	OrderType string `json:"order_type"`
+	ModelID     int64  `json:"model_id"`
+	Quantity    int64  `json:"quantity"`
+	OrderType   string `json:"order_type"`
+	CountryToId int64  `json:"country_to_id"`
 }
 
 func (d *createOrderRequest) validate() bool {
@@ -58,7 +59,7 @@ func (o *ordersRoutes) createNewOrder(c *gin.Context) {
 			ModelID:   request.ModelID,
 			Quantity:  request.Quantity,
 			OrderType: request.OrderType,
-		})
+		}, request.CountryToId)
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return

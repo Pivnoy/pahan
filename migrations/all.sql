@@ -160,7 +160,7 @@ begin
 end;
 $$ language 'plpgsql';
 
-select * from get_all_models();
+--select * from get_all_models();
 
 
 /* функций 2 - Вывод всех супсидий */
@@ -225,14 +225,25 @@ $$ language 'plpgsql';
 
 
 /* функция 8 - создание заказа */
-create or replace function create_order(model_id_by bigint, quantity_by bigint, order_type_by varchar(50))
+create or replace function create_order(model_id_by bigint, quantity_by bigint, order_type_by varchar(50),
+  country_to_id_new bigint)
 returns void as $$
+declare
+    new_order_id integer;
+    quantity integer;
+    price_d integer;
 begin
     insert into "order" (model_id, quantity, order_type)  values (model_id_by, quantity_by, order_type_by);
+
+    new_order_id = (select max(id) from "order");
+    quantity = (select "order".quantity from "order" where "order".id = new_order_id);
+    price_d = (select model.price from model where model.id = model_id_by);
+    insert into shipment (order_id, country_to_id, date, cost) values (new_order_id, country_to_id_new, current_timestamp, quantity * price_d);
 end
 $$ language 'plpgsql';
 
-
+--select create_order(1, 10, 'ddd', 1);
+--select * from get_orders_by_vendor_id(1);
 
 /* функция 9 - оформление доставки */
 create or replace function create_shipment(order_id_by integer, country_to_id_by integer, date_by timestamp, cost_by decimal)
@@ -305,6 +316,9 @@ begin
     where vendor.id = vendor_id_new;
 end;
 $$ language 'plpgsql';
+
+--insert into shipment (order_id, country_to_id,date, cost) values (7, 1, '2022-11-10 00:00:00.000000', 10);
+
 
 
 /* функций 13 - получение заказов по country_id  сделать id модели!!!!!!! */
@@ -440,7 +454,11 @@ insert into component (vendor_id, type_id, name, additional_info) values
                                                                       (15, 12, 'JH1', 'MT 5-speed'),
                                                                       (15, 13, 'DP2', 'AT 3-speed'),
                                                                       (21, 15, 'DCT', 'Robot'),
-                                                                      (21, 13, '6HP19', 'AT 6-speed');
+                                                                      (21, 13, '6HP19', 'AT 6-speed'),
+                                                                      (15, 10, 'JFE3', 'REDFR'),
+                                                                      (14, 10, 'F44E3', 'RE4DFR'),
+                                                                      (15, 10, 'Jflr3', 'RFR');
+
 
 insert into factory (vendor_id, max_workers, productivity) values
                                                                (1, 1000, 10),
