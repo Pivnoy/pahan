@@ -50,10 +50,6 @@ func (f *componentRoutes) getComponentsByVendorAndType(c *gin.Context) {
 	c.JSON(http.StatusOK, componentResponse{components})
 }
 
-type componentsResponse struct {
-	Components []entity.Component `json:"components"`
-}
-
 // GetComponents godoc
 // @Summary get components
 // @Tags Gets
@@ -62,12 +58,30 @@ type componentsResponse struct {
 // @Failure     500 {object} errResponse
 // @Router      /v1/get_components [get]
 func (f *componentRoutes) getComponents(c *gin.Context) {
-	components, err := f.t.GetComponents(c.Request.Context())
+
+	engines, err := f.t.GetComponents(c.Request.Context(), "engine")
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, componentsResponse{components})
+	bumpers, err := f.t.GetComponents(c.Request.Context(), "bumper")
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	transmissions, err := f.t.GetComponents(c.Request.Context(), "transmission")
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	doors, err := f.t.GetComponents(c.Request.Context(), "door")
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, componentsResponseBig{engines, bumpers, transmissions, doors})
 }
 
 type componentCreateRequest struct {
@@ -109,4 +123,11 @@ func (f *componentRoutes) createComponent(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, nil)
+}
+
+type componentsResponseBig struct {
+	Engines       []entity.ComponentVendor `json:"engines"`
+	Bumpers       []entity.ComponentVendor `json:"bumpers"`
+	Transmissions []entity.ComponentVendor `json:"transmissions"`
+	Doors         []entity.ComponentVendor `json:"doors"`
 }

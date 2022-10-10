@@ -328,7 +328,14 @@ begin
 end;
 $$ language 'plpgsql';
 
---
+create or replace function get_all_components(type_new varchar(20))
+returns table(id integer, vendor_id bigint, vendor_name varchar(50), type_id bigint, name varchar(30), additional_info varchar(30)) as $$
+begin
+    return query select com.id, com.vendor_id, v.name, com.type_id, com.name, com.additional_info from component as com inner join vendor v on v.id = com.vendor_id inner join type t on t.id = com.type_id
+    where t.type = type_new;
+end;
+$$ language 'plpgsql';
+
 
 insert into country(gdp_usd, name) values
                                        (124425.64, 'Russia'),
@@ -396,7 +403,7 @@ insert into type (type, additional_info) values
                                              ('door', 'front right'),
                                              ('door', 'back left'),
                                              ('door', 'back right'),
-                                             ('bumped', 'front'),
+                                             ('bumper', 'front'),
                                              ('bumper', 'back'),
                                              ('transmission', 'manual'),
                                              ('transmission', 'automatic'),
