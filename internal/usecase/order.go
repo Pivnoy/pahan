@@ -15,8 +15,8 @@ func NewOrdersUseCase(r OrderRp) *OrdersUseCase {
 	return &OrdersUseCase{repo: r}
 }
 
-func (o *OrdersUseCase) CreateOrder(ctx context.Context, order entity.Order) error {
-	return o.repo.CreateNewOrder(ctx, order)
+func (o *OrdersUseCase) CreateOrder(ctx context.Context, order entity.Order, countryToID int64) error {
+	return o.repo.CreateNewOrder(ctx, order, countryToID)
 }
 
 func (o *OrdersUseCase) GetOrders(ctx context.Context) ([]entity.Order, error) {
