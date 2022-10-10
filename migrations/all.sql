@@ -165,9 +165,9 @@ select * from get_all_models();
 
 /* функций 2 - Вывод всех супсидий */
 create or replace function get_all_subsidies()
-returns table(id integer, country_id bigint, require_price decimal, required_wd varchar(3)) as $$
+returns table(id integer, country_id bigint, require_price decimal, required_wd varchar(3), country_name varchar(30)) as $$
 begin
-    return query select * from subsidy;
+    return query select s.id, s.country_id, s.require_price, s.required_wd, c.name from subsidy as s inner join country c on c.id = s.country_id;
 end;
 $$ language 'plpgsql';
 

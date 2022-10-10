@@ -16,7 +16,7 @@ func NewSubsidyUseCase(r SubsidyRp) *SubsidyUseCase {
 	return &SubsidyUseCase{repo: r}
 }
 
-func (sb *SubsidyUseCase) GetAllSubsidies(ctx context.Context) ([]entity.Subsidy, error) {
+func (sb *SubsidyUseCase) GetAllSubsidies(ctx context.Context) ([]entity.SubsidyCountry, error) {
 	listSubsidies, err := sb.repo.GetSubsidies(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("SubsidyUseCase - subsidy list - m.repo.GetSubsidies: %w", err)

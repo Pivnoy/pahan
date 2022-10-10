@@ -26,6 +26,10 @@ type subsidyResponse struct {
 	Subsidy []entity.Subsidy `json:"subsidy"`
 }
 
+type subsidyResponseCountry struct {
+	Subsidy []entity.SubsidyCountry `json:"subsidy"`
+}
+
 // GetSubsidies godoc
 // @Summary list of subsidies
 // @Tags Gets
@@ -39,7 +43,7 @@ func (s *subsidyRoutes) getSubsidies(c *gin.Context) {
 		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
-	c.JSON(http.StatusOK, subsidyResponse{listSubsidies})
+	c.JSON(http.StatusOK, subsidyResponseCountry{listSubsidies})
 }
 
 func (s *subsidyRoutes) getSubsidiesByVendor(c *gin.Context) {
