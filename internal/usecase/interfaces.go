@@ -15,14 +15,14 @@ type (
 	}
 
 	Subsidy interface {
-		GetAllSubsidies(context.Context) ([]entity.Subsidy, error)
+		GetAllSubsidies(context.Context) ([]entity.SubsidyCountry, error)
 		CreateSubsidy(context.Context, int64, float64, string) error
 		AcceptSubsidyUs(context.Context, int64, entity.Model, int64, int64, int64, int64) error
 		GetSubsidyByCountry(context.Context, int64) ([]entity.Subsidy, error)
 	}
 
 	SubsidyRp interface {
-		GetSubsidies(context.Context) ([]entity.Subsidy, error)
+		GetSubsidies(context.Context) ([]entity.SubsidyCountry, error)
 		CreateAndLinkSubsidy(context.Context, int64, float64, string) error
 		AcceptSubsidy(context.Context, int64, entity.Model, int64, int64, int64, int64) error
 		GetSubsidyByCountry(context.Context, int64) ([]entity.Subsidy, error)
@@ -30,12 +30,12 @@ type (
 
 	Model interface {
 		NewModel(context.Context, entity.Model) error
-		GetAllModels(context.Context) ([]entity.Model, error)
+		GetAllModels(context.Context) ([]entity.ModelBig, error)
 	}
 
 	ModelRp interface {
 		DoNewModel(context.Context, entity.Model) error
-		GetModels(context.Context) ([]entity.Model, error)
+		GetModels(context.Context) ([]entity.ModelBig, error)
 	}
 
 	Vendor interface {
@@ -89,13 +89,13 @@ type (
 
 	ComponentRp interface {
 		GetComponentsByVendorIDAndTypeID(context.Context, int64, int64) ([]entity.Component, error)
-		GetAllComponents(context.Context) ([]entity.Component, error)
+		GetAllComponents(context.Context, string) ([]entity.ComponentVendor, error)
 		CreateCustomComponent(context.Context, int64, int64, string, string) error
 	}
 
 	Component interface {
 		GetComponentsByVendorAndType(context.Context, int64, int64) ([]entity.Component, error)
-		GetComponents(context.Context) ([]entity.Component, error)
+		GetComponents(context.Context, string) ([]entity.ComponentVendor, error)
 		CreateComponent(context.Context, int64, int64, string, string) error
 	}
 

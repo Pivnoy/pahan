@@ -19,8 +19,8 @@ func (c *ComponentUseCase) GetComponentsByVendorAndType(ctx context.Context, ven
 	return c.repo.GetComponentsByVendorIDAndTypeID(ctx, vendorID, typeID)
 }
 
-func (c *ComponentUseCase) GetComponents(ctx context.Context) ([]entity.Component, error) {
-	return c.repo.GetAllComponents(ctx)
+func (c *ComponentUseCase) GetComponents(ctx context.Context, typeComponent string) ([]entity.ComponentVendor, error) {
+	return c.repo.GetAllComponents(ctx, typeComponent)
 }
 
 func (c *ComponentUseCase) CreateComponent(ctx context.Context, vendorID int64, typeID int64, name string, additionalInfo string) error {

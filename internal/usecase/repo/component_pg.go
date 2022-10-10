@@ -44,21 +44,22 @@ func (c *ComponentRepo) GetComponentsByVendorIDAndTypeID(ctx context.Context, ve
 	return components, nil
 }
 
-func (c *ComponentRepo) GetAllComponents(ctx context.Context) ([]entity.Component, error) {
-	query := `SELECT * FROM component`
+func (c *ComponentRepo) GetAllComponents(ctx context.Context, typeComponent string) ([]entity.ComponentVendor, error) {
+	query := `SELECT * FROM get_all_components($1)`
 
-	rows, err := c.Pool.Query(ctx, query)
+	rows, err := c.Pool.Query(ctx, query, typeComponent)
 	if err != nil {
 		return nil, fmt.Errorf("cannot execute query: %w", err)
 	}
 	defer rows.Close()
 
-	var components []entity.Component
+	var components []entity.ComponentVendor
 
 	for rows.Next() {
-		var cmp entity.Component
+		var cmp entity.ComponentVendor
 		err = rows.Scan(&cmp.ID,
 			&cmp.VendorID,
+			&cmp.VendorName,
 			&cmp.TypeID,
 			&cmp.Name,
 			&cmp.AdditionalInfo)

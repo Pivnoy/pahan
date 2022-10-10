@@ -16,7 +16,7 @@ func NewModelUseCase(r ModelRp) *ModelUseCase {
 
 var _ Model = (*ModelUseCase)(nil)
 
-func (m *ModelUseCase) GetAllModels(ctx context.Context) ([]entity.Model, error) {
+func (m *ModelUseCase) GetAllModels(ctx context.Context) ([]entity.ModelBig, error) {
 	listModels, err := m.repo.GetModels(ctx)
 	if err != nil {
 		return nil, fmt.Errorf("ModelUseCase - model list - m.repo.GetModels: %w", err)

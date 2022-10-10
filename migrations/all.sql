@@ -154,19 +154,20 @@ create trigger auto_check_count_model before insert on "order"
 /* функция 1 - Вывод списка всех моделей */
 create or replace function get_all_models()
 returns table(id integer, vendor_id integer, name varchar(20), wheeldrive varchar(3),
-significance integer, price decimal, prod_cost decimal, engineer_id bigint, factory_id bigint, sales bigint) as $$
+significance integer, price decimal, prod_cost decimal, engineer_id bigint, factory_id bigint, sales bigint, vendor_name varchar(50), engineer_name varchar(50), country_name varchar(50)) as $$
 begin
-    return query select * from model;
+    return query select m.id, m.vendor_id, m.name, m.wheeldrive, m.significance, m.price, m.prod_cost, m.engineer_id, m.factory_id, m.sales, v.name, e.name, c.name from model as m inner join engineer e on e.id = m.engineer_id inner join vendor as v on m.vendor_id = v.id inner join country c on v.country_id = c.id;
 end;
 $$ language 'plpgsql';
 
+select * from get_all_models();
 
 
 /* функций 2 - Вывод всех супсидий */
 create or replace function get_all_subsidies()
-returns table(id integer, country_id bigint, require_price decimal, required_wd varchar(3)) as $$
+returns table(id integer, country_id bigint, require_price decimal, required_wd varchar(3), country_name varchar(30)) as $$
 begin
-    return query select * from subsidy;
+    return query select s.id, s.country_id, s.require_price, s.required_wd, c.name from subsidy as s inner join country c on c.id = s.country_id;
 end;
 $$ language 'plpgsql';
 
@@ -327,7 +328,14 @@ begin
 end;
 $$ language 'plpgsql';
 
---
+create or replace function get_all_components(type_new varchar(20))
+returns table(id integer, vendor_id bigint, vendor_name varchar(50), type_id bigint, name varchar(30), additional_info varchar(30)) as $$
+begin
+    return query select com.id, com.vendor_id, v.name, com.type_id, com.name, com.additional_info from component as com inner join vendor v on v.id = com.vendor_id inner join type t on t.id = com.type_id
+    where t.type = type_new;
+end;
+$$ language 'plpgsql';
+
 
 insert into country(gdp_usd, name) values
                                        (124425.64, 'Russia'),
@@ -395,7 +403,7 @@ insert into type (type, additional_info) values
                                              ('door', 'front right'),
                                              ('door', 'back left'),
                                              ('door', 'back right'),
-                                             ('bumped', 'front'),
+                                             ('bumper', 'front'),
                                              ('bumper', 'back'),
                                              ('transmission', 'manual'),
                                              ('transmission', 'automatic'),
