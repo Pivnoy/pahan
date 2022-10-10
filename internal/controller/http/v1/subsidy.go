@@ -97,16 +97,16 @@ func (s *subsidyRoutes) createSubsidy(c *gin.Context) {
 }
 
 type createAcceptSubsidyRequest struct {
-	SubsidyID               int64  `json:"subsidy-id"`
+	SubsidyID               int64  `json:"subsidyId"`
 	VendorID                int64  `json:"vendor-id"`
 	Name                    string `json:"name"`
 	Significance            int64  `json:"significance"`
-	EngineerID              int64  `json:"engineer-id"`
-	FactoryID               int64  `json:"factory-id"`
-	ComponentEngineID       int64  `json:"component-engine-id"`
-	ComponentDoorID         int64  `json:"component-door-id"`
-	ComponentBumperID       int64  `json:"component-bumper-id"`
-	ComponentTransmissionID int64  `json:"component-transmission-id"`
+	EngineerID              string `json:"engineer-id"`
+	FactoryID               string `json:"factory-id"`
+	ComponentEngineID       string `json:"component-engine-id"`
+	ComponentDoorID         string `json:"component-door-id"`
+	ComponentBumperID       string `json:"component-bumper-id"`
+	ComponentTransmissionID string `json:"component-transmission-id"`
 }
 
 // AcceptSubsidy godoc
@@ -123,6 +123,14 @@ func (s *subsidyRoutes) acceptSubsidy(c *gin.Context) {
 		errorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
+
+	EngineerIdInt, _ := strconv.ParseInt(cars.EngineerID, 10, 64)
+	FactoryIdInt, _ := strconv.ParseInt(cars.FactoryID, 10, 64)
+	EngineInt, _ := strconv.ParseInt(cars.ComponentEngineID, 10, 64)
+	DoorInt, _ := strconv.ParseInt(cars.ComponentDoorID, 10, 64)
+	BumperInt, _ := strconv.ParseInt(cars.ComponentBumperID, 10, 64)
+	TransInt, _ := strconv.ParseInt(cars.ComponentTransmissionID, 10, 64)
+
 	err := s.t.AcceptSubsidyUs(
 		c.Request.Context(),
 		cars.SubsidyID,
@@ -130,13 +138,13 @@ func (s *subsidyRoutes) acceptSubsidy(c *gin.Context) {
 			VendorID:     cars.VendorID,
 			Name:         cars.Name,
 			Significance: cars.Significance,
-			EngineerID:   cars.EngineerID,
-			FactoryID:    cars.FactoryID,
+			EngineerID:   EngineerIdInt,
+			FactoryID:    FactoryIdInt,
 		},
-		cars.ComponentEngineID,
-		cars.ComponentDoorID,
-		cars.ComponentBumperID,
-		cars.ComponentTransmissionID,
+		EngineInt,
+		DoorInt,
+		BumperInt,
+		TransInt,
 	)
 	if err != nil {
 		errorResponse(c, http.StatusBadRequest, err.Error())
