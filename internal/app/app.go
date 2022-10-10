@@ -40,7 +40,7 @@ func Run(cfg *config.Config) {
 	handler.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"*"},
-		AllowHeaders:     []string{"Origin"},
+		AllowHeaders:     []string{"Access-Control-Allow-Origin", "*"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
