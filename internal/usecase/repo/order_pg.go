@@ -55,9 +55,9 @@ func (o *OrderRepo) GetAllOrders(ctx context.Context) ([]entity.Order, error) {
 }
 
 func (o *OrderRepo) GetAllOrdersByVendor(ctx context.Context, vendorID int64) ([]entity.OrdersVendor, error) {
-	query := `select model_name, model_id, order_id, quantity, order_type, shipment_cost, shipment_date from get_orders_by_vendor_id(1)`
+	query := `select model_name, model_id, order_id, quantity, order_type, shipment_cost, shipment_date from get_orders_by_vendor_id($1)`
 
-	rows, err := o.Pool.Query(ctx, query)
+	rows, err := o.Pool.Query(ctx, query, vendorID)
 	if err != nil {
 		return nil, fmt.Errorf("cannot execute query: %w", err)
 	}
@@ -80,4 +80,34 @@ func (o *OrderRepo) GetAllOrdersByVendor(ctx context.Context, vendorID int64) ([
 		ordersVendor = append(ordersVendor, orderVendor)
 	}
 	return ordersVendor, nil
+}
+
+func (o *OrderRepo) GetAllOrdersByCountry(ctx context.Context, countryID int64) ([]entity.OrdersCountry, error) {
+	query := `select vendor_name , model_name , model_id, order_id , quantity, order_type, shipment_cost, shipment_date from get_orders_by_country_id($1)`
+
+	rows, err := o.Pool.Query(ctx, query, countryID)
+	if err != nil {
+		return nil, fmt.Errorf("cannot execute query: %w", err)
+	}
+	defer rows.Close()
+
+	var ordersCountry []entity.OrdersCountry
+
+	for rows.Next() {
+		var orderCountry entity.OrdersCountry
+		err = rows.Scan(
+			&orderCountry.VendorName,
+			&orderCountry.ModelName,
+			&orderCountry.ModelID,
+			&orderCountry.OrderID,
+			&orderCountry.Quantity,
+			&orderCountry.OrderType,
+			&orderCountry.ShipmentCost,
+			&orderCountry.Date)
+		if err != nil {
+			return nil, fmt.Errorf("error in parsing order: %w", err)
+		}
+		ordersCountry = append(ordersCountry, orderCountry)
+	}
+	return ordersCountry, nil
 }

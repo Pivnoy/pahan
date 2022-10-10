@@ -17,7 +17,8 @@ func newOrdersRoutes(handler *gin.RouterGroup, t usecase.Order) {
 
 	handler.POST("/create_order", r.createNewOrder)
 	handler.GET("/get_orders", r.getOrders)
-	handler.GET("/get_orders-by-vendor-id", r.getOrdersByVendorID)
+	handler.GET("/get_orders_by_vendor", r.getOrdersByVendorID)
+	handler.GET("/get_orders_by_country", r.getOrdersByCountryID)
 }
 
 type createOrderRequest struct {
@@ -102,4 +103,23 @@ func (o *ordersRoutes) getOrdersByVendorID(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, orderByVendorResponse{orders})
+}
+
+type orderByCountryResponse struct {
+	Res []entity.OrdersCountry `json:"res"`
+}
+
+func (o *ordersRoutes) getOrdersByCountryID(c *gin.Context) {
+	countryIDParam := c.Query("country-id")
+	countryID, err := strconv.ParseInt(countryIDParam, 10, 64)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+	}
+	orders, err := o.t.GetOrdersByCountry(c.Request.Context(), countryID)
+	if err != nil {
+		errorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, orderByCountryResponse{orders})
 }
