@@ -42,6 +42,15 @@ type (
 
 	VendorRp interface {
 		GetVendors(context.Context) ([]entity.Vendor, error)
+		LoginVendor(context.Context, string) (int64, error)
+	}
+
+	CountryRp interface {
+		LoginCountry(context.Context, string) (int64, error)
+	}
+
+	Login interface {
+		Login(context.Context, string, string) (int64, error)
 	}
 
 	Order interface {

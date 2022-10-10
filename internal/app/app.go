@@ -32,6 +32,9 @@ func Run(cfg *config.Config) {
 	factoryUseCase := usecase.NewFactoryUseCase(repo.NewFactoryRepo(pg))
 	componentUseCase := usecase.NewComponentUseCase(repo.NewComponentRepo(pg))
 	typeUseCase := usecase.NewTypeUseCase(repo.NewTypeRepo(pg))
+	loginUseCase := usecase.NewLoginUseCase(
+		repo.NewVendorRepo(pg),
+		repo.NewCountryRepo(pg))
 	// http Server
 	handler := gin.New()
 	handler.Use(cors.New(cors.Config{
@@ -50,7 +53,8 @@ func Run(cfg *config.Config) {
 		engineerUseCase,
 		factoryUseCase,
 		componentUseCase,
-		typeUseCase)
+		typeUseCase,
+		loginUseCase)
 
 	serv := httpserver.New(handler, httpserver.Port(cfg.HTTP.Port))
 	interruption := make(chan os.Signal, 1)
