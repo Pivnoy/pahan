@@ -55,7 +55,7 @@ func (o *OrderRepo) GetAllOrders(ctx context.Context) ([]entity.Order, error) {
 }
 
 func (o *OrderRepo) GetAllOrdersByVendor(ctx context.Context, vendorID int64) ([]entity.OrdersVendor, error) {
-	query := `select model_name, model_id, order_id, quantity, order_type, shipment_cost, shipment_date from get_orders_by_vendor_id($1)`
+	query := `select * from get_orders_by_vendor_id($1)`
 
 	rows, err := o.Pool.Query(ctx, query, vendorID)
 	if err != nil {
@@ -69,6 +69,7 @@ func (o *OrderRepo) GetAllOrdersByVendor(ctx context.Context, vendorID int64) ([
 		var orderVendor entity.OrdersVendor
 		err = rows.Scan(&orderVendor.ModelName,
 			&orderVendor.ModelID,
+			&orderVendor.CountryName,
 			&orderVendor.OrderID,
 			&orderVendor.Quantity,
 			&orderVendor.OrderType,

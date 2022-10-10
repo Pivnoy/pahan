@@ -294,12 +294,13 @@ $$ language 'plpgsql';
 
 /* функция 12 - получение заказов по vendor_id */
 create or replace function get_orders_by_vendor_id(vendor_id_new integer)
-returns table(model_name varchar(50), model_id integer, order_id integer, quantity bigint, order_type varchar(50), shipment_cost numeric, shipment_date timestamp) as $$
+returns table(model_name varchar(50),model_id integer,country_name varchar(50), order_id integer, quantity bigint, order_type varchar(50), shipment_cost numeric, shipment_date timestamp) as $$
 begin
-    return query select model.name as model_name, model.id as model_id, "order".id as order_id, "order".quantity, "order".order_type, s.cost, s.date from "order"
+    return query select model.name as model_name, model.id as model_id, c.name, "order".id as order_id, "order".quantity, "order".order_type, s.cost, s.date from "order"
                                                                                                                              inner join model on "order".model_id = model.id
                                                                                                                              inner join vendor on model.vendor_id = vendor.id
                                                                                                                              inner join shipment s on "order".id = s.order_id
+                                                                                                                             inner join country c on s.country_to_id = c.id
     where vendor.id = vendor_id_new;
 end;
 $$ language 'plpgsql';
