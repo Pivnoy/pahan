@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"pahan/internal/entity"
 	"pahan/internal/usecase"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +17,7 @@ func newSubsidyRoutes(handler *gin.RouterGroup, t usecase.Subsidy) {
 	r := subsidyRoutes{t: t}
 
 	handler.GET("/get_subsidies", r.getSubsidies)
+	handler.GET("/get_subsidies_by_vendor", r.getSubsidiesByVendor)
 	handler.POST("/create_subsidy", r.createSubsidy)
 	handler.POST("/accept_subsidy", r.acceptSubsidy)
 }
@@ -33,6 +35,17 @@ type subsidyResponse struct {
 // @Router      /v1/get_subsidies [get]
 func (s *subsidyRoutes) getSubsidies(c *gin.Context) {
 	listSubsidies, err := s.t.GetAllSubsidies(c.Request.Context())
+	if err != nil {
+		errorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, subsidyResponse{listSubsidies})
+}
+
+func (s *subsidyRoutes) getSubsidiesByVendor(c *gin.Context) {
+	vendorIDParam := c.Query("vendor-id")
+	vendorID, err := strconv.ParseInt(vendorIDParam, 10, 64)
+	listSubsidies, err := s.t.GetSubsidyByCountry(c.Request.Context(), vendorID)
 	if err != nil {
 		errorResponse(c, http.StatusInternalServerError, err.Error())
 		return
