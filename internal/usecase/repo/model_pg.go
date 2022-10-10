@@ -18,8 +18,8 @@ func NewModelRepo(pg *postgres.Postgres) *ModelRepo {
 	return &ModelRepo{pg}
 }
 
-func (m *ModelRepo) GetModels(ctx context.Context) ([]entity.Model, error) {
-	query := `SELECT id, vendor_id, name, wheeldrive, significance, price, prod_cost, engineer_id, factory_id, sales FROM get_all_models();`
+func (m *ModelRepo) GetModels(ctx context.Context) ([]entity.ModelBig, error) {
+	query := `SELECT * FROM get_all_models();`
 
 	rows, err := m.Pool.Query(ctx, query)
 	if err != nil {
@@ -27,10 +27,10 @@ func (m *ModelRepo) GetModels(ctx context.Context) ([]entity.Model, error) {
 	}
 	defer rows.Close()
 
-	var models []entity.Model
+	var models []entity.ModelBig
 
 	for rows.Next() {
-		var model entity.Model
+		var model entity.ModelBig
 		err = rows.Scan(
 			&model.ID,
 			&model.VendorID,
@@ -42,6 +42,9 @@ func (m *ModelRepo) GetModels(ctx context.Context) ([]entity.Model, error) {
 			&model.EngineerID,
 			&model.FactoryID,
 			&model.Sales,
+			&model.VendorName,
+			&model.EngineerName,
+			&model.CountryName,
 		)
 
 		if err != nil {

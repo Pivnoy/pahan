@@ -154,12 +154,13 @@ create trigger auto_check_count_model before insert on "order"
 /* функция 1 - Вывод списка всех моделей */
 create or replace function get_all_models()
 returns table(id integer, vendor_id integer, name varchar(20), wheeldrive varchar(3),
-significance integer, price decimal, prod_cost decimal, engineer_id bigint, factory_id bigint, sales bigint) as $$
+significance integer, price decimal, prod_cost decimal, engineer_id bigint, factory_id bigint, sales bigint, vendor_name varchar(50), engineer_name varchar(50), country_name varchar(50)) as $$
 begin
-    return query select * from model;
+    return query select m.id, m.vendor_id, m.name, m.wheeldrive, m.significance, m.price, m.prod_cost, m.engineer_id, m.factory_id, m.sales, v.name, e.name, c.name from model as m inner join engineer e on e.id = m.engineer_id inner join vendor as v on m.vendor_id = v.id inner join country c on v.country_id = c.id;
 end;
 $$ language 'plpgsql';
 
+select * from get_all_models();
 
 
 /* функций 2 - Вывод всех супсидий */

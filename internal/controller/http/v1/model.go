@@ -19,7 +19,7 @@ func newModelRoutes(handler *gin.RouterGroup, t usecase.Model) {
 }
 
 type modelResponse struct {
-	Models []entity.Model `json:"models"`
+	Models []entity.ModelBig `json:"models"`
 }
 
 // GetAllModels godoc
