@@ -15,7 +15,8 @@ func NewRouter(handler *gin.Engine,
 	en usecase.Engineer,
 	fc usecase.Factory,
 	cm usecase.Component,
-	tp usecase.Type) {
+	tp usecase.Type,
+	lg usecase.Login) {
 
 	h := handler.Group("/v1")
 
@@ -30,5 +31,6 @@ func NewRouter(handler *gin.Engine,
 		newFactoryRoutes(h, fc)
 		newComponentRoutes(h, cm)
 		newTypeRouter(h, tp)
+		newLoginRoutes(h, lg)
 	}
 }
